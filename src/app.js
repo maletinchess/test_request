@@ -16,6 +16,7 @@ const app = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const url = formData.get('name');
+    console.log(url);
 
     try {
       const data = await getRss(url);
