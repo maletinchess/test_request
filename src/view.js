@@ -4,7 +4,7 @@ const renderFeeds = (state, elements) => {
   const { feeds } = state;
   const ul = document.createElement('ul');
   ul.classList.add('list-group');
-  elements.feeds.append(ul);
+  elements.form.after(ul);
   feeds.forEach((item) => {
     const a = document.createElement('a');
     const li = document.createElement('li');
