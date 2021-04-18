@@ -27,14 +27,14 @@ const app = () => {
   };
 
   const watchedState = initview(state, elements);
-  elements.form.addEventListener('submit', (e) => {
+  elements.form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
     const url = formData.get('name');
 
     try {
-      const xml = getRss(url);
+      const xml = await getRss(url);
       watchedState.feeds = [...watchedState.feeds, parseXml(xml)];
     } catch (err) {
       const div = document.createElement('div');
