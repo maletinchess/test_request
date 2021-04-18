@@ -4,8 +4,8 @@ import initview from './view';
 import parseXml from './parser';
 
 const getRss = async (url) => {
-  const response = await axios.get(`https://hexlet-allorigins.herokuapp.com/get?url=${url}`);
-  return response.data.content;
+  const response = await axios.get(`https://hexlet-allorigins.herokuapp.com/raw?url=${url}`);
+  return response.data;
 };
 
 const app = () => {
