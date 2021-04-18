@@ -33,7 +33,7 @@ const app = () => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    const url = formData.get('url');
+    const url = formData.get('name');
 
     try {
       const xml = await getRss(url);
