@@ -15,10 +15,6 @@ const buildDivWithPosts = () => {
 };
 
 const renderFeeds = (state, elements) => {
-  const container = document.querySelector('container');
-  if (container) {
-    container.remove();
-  }
   buildDivWithPosts();
   const newContainer = document.querySelector('container');
   const { feeds } = state;
