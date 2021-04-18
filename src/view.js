@@ -7,6 +7,7 @@ const renderFeeds = (state, elements) => {
   feeds.forEach((item) => {
     const li = document.createElement('li');
     li.textContent = item.title;
+    li.setAttribute('href', item.link);
     ul.append(li);
   });
 };
