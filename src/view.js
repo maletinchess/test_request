@@ -6,7 +6,7 @@ const renderFeeds = (state, elements) => {
   elements.form.append(ul);
   feeds.forEach((item) => {
     const li = document.createElement('li');
-    li.textContent = item.title;
+    li.textContent = item;
     ul.append(li);
   });
 };
