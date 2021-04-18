@@ -5,10 +5,10 @@ const renderFeeds = (state, elements) => {
   const ul = document.createElement('ul');
   elements.form.append(ul);
   feeds.forEach((item) => {
-    const li = document.createElement('li');
-    li.textContent = item.title;
-    li.setAttribute('href', item.link);
-    ul.append(li);
+    const a = document.createElement('a');
+    a.textContent = item.title;
+    a.setAttribute('href', item.link);
+    ul.append(a);
   });
 };
 
