@@ -23,7 +23,7 @@ const app = () => {
   const elements = {
     form: document.querySelector('form'),
     btn: document.querySelector('button'),
-    input: document.querySelector('#inputUrl'),
+    input: document.querySelector('input'),
     feeds: document.querySelector('.feeds'),
     posts: document.querySelector('.posts'),
   };
@@ -33,7 +33,7 @@ const app = () => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    const url = formData.get('name');
+    const url = formData.get('url');
 
     try {
       const xml = await getRss(url);
