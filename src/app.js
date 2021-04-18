@@ -35,7 +35,7 @@ const app = () => {
 
     try {
       const xml = await getRss(url);
-      watchedState.feeds = [...watchedState.feeds, parseXml(xml)];
+      watchedState.feeds = xml;
     } catch (err) {
       const div = document.createElement('div');
       elements.input.after(div);
