@@ -1,32 +1,45 @@
 import axios from 'axios';
+import yup from 'yup';
+import initview from './view';
+import parseXml from './parser';
 
 const getRss = async (url) => {
-  const response = await axios.get(url);
-  return response.data;
-};
-
-const elements = {
-  form: document.querySelector('form'),
-  btn: document.querySelector('button'),
-  input: document.querySelector('#inputUrl'),
+  const response = await axios.get(`https://hexlet-allorigins.herokuapp.com/get?url=${url}`);
+  return response.data.content;
 };
 
 const app = () => {
-  elements.form.addEventListener('submit', async (e) => {
+  const state = {
+    form: {
+      fields: {
+        rssInput: '',
+        error: null,
+      },
+      status: 'filling',
+    },
+    feeds: [],
+  };
+
+  const elements = {
+    form: document.querySelector('form'),
+    btn: document.querySelector('button'),
+    input: document.querySelector('#inputUrl'),
+  };
+
+  const watchedState = initview(state, elements);
+  elements.form.addEventListener('submit', (e) => {
     e.preventDefault();
+
     const formData = new FormData(e.target);
     const url = formData.get('name');
-    console.log(url);
 
     try {
-      const data = await getRss(url);
-      const newDiv = document.createElement('div');
-      elements.form.append(newDiv);
-      newDiv.textContent = data;
+      const xml = getRss(url);
+      watchedState.feeds = [...watchedState.feeds, parseXml(xml)];
     } catch (err) {
-      const newDiv = document.createElement('div');
-      elements.form.append(newDiv);
-      newDiv.textContent = err;
+      const div = document.createElement('div');
+      elements.input.after(div);
+      div.textContent = err;
     }
   });
 };
