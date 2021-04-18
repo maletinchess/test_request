@@ -1,7 +1,7 @@
 import onChange from 'on-change';
 
 const renderFeeds = (state, elements) => {
-  const { feeds } = state.feeds;
+  const { feeds } = state;
   const ul = document.createElement('ul');
   elements.form.append(ul);
   feeds.forEach((item) => {
