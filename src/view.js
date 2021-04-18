@@ -1,14 +1,36 @@
 import onChange from 'on-change';
 
+const buildDivWithPosts = () => {
+  const feedsContainer = document.createElement('div');
+  feedsContainer.classList.add('container');
+  const headContainer = document.createElement('div');
+  headContainer.classList.add('row');
+  const head = document.createElement('div');
+  head.classList.add('col-10');
+  head.innerHTML = '<h2>Feeds</h2>';
+  headContainer.append(head);
+  feedsContainer.append(headContainer);
+  const linksUl = document.createElement('ul');
+  headContainer.after(linksUl);
+};
+
 const renderFeeds = (state, elements) => {
+  const container = document.querySelector('container');
+  if (container) {
+    container.remove();
+  }
+  buildDivWithPosts();
+  const newContainer = document.querySelector('container');
   const { feeds } = state;
-  const ul = document.createElement('ul');
-  elements.form.append(ul);
+  const ul = document.querySelector('ul');
+  elements.form.after(newContainer);
   feeds.forEach((item) => {
     const a = document.createElement('a');
+    const li = document.createElement('li');
+    li.append(a);
     a.textContent = item.title;
     a.setAttribute('href', item.link);
-    ul.append(a);
+    ul.append(li);
   });
 };
 
