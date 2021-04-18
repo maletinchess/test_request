@@ -3,11 +3,13 @@ import onChange from 'on-change';
 const renderFeeds = (state, elements) => {
   const { feeds } = state;
   const ul = document.createElement('ul');
+  ul.classList.add('list-group');
   elements.form.after(ul);
   feeds.forEach((item) => {
     const a = document.createElement('a');
     const li = document.createElement('li');
     li.append(a);
+    li.classList.add('list-group-item');
     a.textContent = item.title;
     a.setAttribute('href', item.link);
     ul.append(li);
