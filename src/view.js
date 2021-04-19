@@ -18,6 +18,7 @@ const buildHeadsContainer = (state, elements) => {
 
 const renderFeeds = (state, elements) => {
   const { feeds } = state;
+  elements.posts.textContent = '';
   const ul = document.createElement('ul');
   ul.classList.add('list-group');
   elements.posts.append(ul);
