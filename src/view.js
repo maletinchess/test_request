@@ -16,7 +16,7 @@ const buildFeedsDiv = (state, elements) => {
     const li = document.createElement('li');
     li.classList.add('list-group-item');
     ul.append(li);
-    const h = document.createElement('h');
+    const h = document.createElement('h3');
     li.append(h);
     h.textContent = data.title;
     const p = document.createElement('p');
