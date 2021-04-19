@@ -1,7 +1,7 @@
 import axios from 'axios';
 import yup from 'yup';
 import initview from './view';
-import parseXml from './parser';
+import parseXml from './utils';
 
 const getRss = async (url) => {
   const response = await axios.get(`https://hexlet-allorigins.herokuapp.com/raw?url=${url}`);

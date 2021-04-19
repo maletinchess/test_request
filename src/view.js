@@ -1,15 +1,11 @@
 import onChange from 'on-change';
 
-const renderFeeds = (state, elements) => {
+const buildHeadsContainer = (state, elements) => {
   const { feeds } = state;
-  const ul = document.createElement('ul');
-  ul.classList.add('list-group');
-  elements.posts.append(ul);
-
   const head = document.createElement('h2');
   head.textContent = 'Feeds';
   elements.feeds.append(head);
-  const [dataForHead] = feeds;
+  const dataForHead = feeds.find((feed) => feed.type === 'head');
   const divForHead = document.createElement('div');
   head.after(divForHead);
   const feedHead = document.createElement('h3');
@@ -18,7 +14,13 @@ const renderFeeds = (state, elements) => {
   const descriptionParagraf = document.createElement('p');
   feedHead.after(descriptionParagraf);
   descriptionParagraf.textContent = dataForHead.description;
+};
 
+const renderFeeds = (state, elements) => {
+  const { feeds } = state;
+  const ul = document.createElement('ul');
+  ul.classList.add('list-group');
+  elements.posts.append(ul);
   feeds.forEach((item) => {
     const a = document.createElement('a');
     const li = document.createElement('li');
