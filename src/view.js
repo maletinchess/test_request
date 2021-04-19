@@ -4,7 +4,21 @@ const renderFeeds = (state, elements) => {
   const { feeds } = state;
   const ul = document.createElement('ul');
   ul.classList.add('list-group');
-  elements.feeds.append(ul);
+  elements.posts.append(ul);
+
+  const head = document.createElement('h2');
+  head.textContent = 'Feeds';
+  elements.feeds.append(head);
+  const [dataForHead] = feeds;
+  const divForHead = document.createElement('div');
+  head.after(divForHead);
+  const feedHead = document.createElement('h3');
+  divForHead.append(feedHead);
+  feedHead.textContent = dataForHead.title;
+  const descriptionParagraf = document.createElement('p');
+  feedHead.after(descriptionParagraf);
+  descriptionParagraf.textContent = dataForHead.description;
+
   feeds.forEach((item) => {
     const a = document.createElement('a');
     const li = document.createElement('li');
