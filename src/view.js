@@ -1,24 +1,32 @@
+/* eslint-disable no-param-reassign */
+
 import onChange from 'on-change';
 
-const buildHeadsContainer = (state, elements) => {
+const buildFeedsDiv = (state, elements) => {
   const { feeds } = state;
   const head = document.createElement('h2');
   head.textContent = 'Feeds';
   elements.feeds.append(head);
-  const dataForHead = feeds.find((feed) => feed.type === 'head');
-  const divForHead = document.createElement('div');
-  head.after(divForHead);
-  const feedHead = document.createElement('h3');
-  divForHead.append(feedHead);
-  feedHead.textContent = dataForHead.title;
-  const descriptionParagraf = document.createElement('p');
-  feedHead.after(descriptionParagraf);
-  descriptionParagraf.textContent = dataForHead.description;
+  const ul = document.createElement('ul');
+  head.after(ul);
+  const datasForHeads = feeds.filter((item) => item.type === 'head');
+  datasForHeads.forEach((data) => {
+    const li = document.createElement('li');
+    ul.append(li);
+    const h = document.createElement('h');
+    li.append(h);
+    h.textContent = data.title;
+    const p = document.createElement('p');
+    h.after(p);
+    p.textContent = data.description;
+  });
 };
 
 const renderFeeds = (state, elements) => {
   const { feeds } = state;
   elements.posts.textContent = '';
+  elements.posts.textContent = '';
+  buildFeedsDiv(state, elements);
   const ul = document.createElement('ul');
   ul.classList.add('list-group');
   elements.posts.append(ul);
