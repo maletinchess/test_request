@@ -2,6 +2,26 @@
 
 import onChange from 'on-change';
 
+const buildErrorElement = (error) => {
+  const el = document.createElement('div');
+  el.classList.add('text-danger');
+  el.textContent = error;
+  return el;
+};
+
+const renderFormErrors = (form, elements) => {
+  const error = elements.example.nextSibling;
+  if (error) {
+    error.remove();
+  }
+
+  const url = form.fields.rssUrl;
+  if (!url.valid) {
+    const errorElement = buildErrorElement(url.error);
+    elements.example.after(errorElement);
+  }
+};
+
 const buildFeedsDiv = (state, elements) => {
   const { feeds } = state;
   const head = document.createElement('h2');
@@ -48,6 +68,7 @@ const renderFeeds = (state, elements) => {
 const initview = (state, elements) => {
   const mapping = {
     feeds: () => renderFeeds(state, elements),
+    'form.fields.rssUrl': () => renderFormErrors(state.form, elements),
   };
 
   const watchedState = onChange(state, (path) => {

@@ -8,22 +8,40 @@ const getRss = async (url) => {
   return response.data;
 };
 
+const validate = (value) => {
+  const schema = yup
+    .string()
+    .trim()
+    .url()
+    .matches(/rss/);
+  try {
+    schema.validateSync(value);
+    return null;
+  } catch (err) {
+    return err.message;
+  }
+};
+
 const app = () => {
   const state = {
     form: {
       fields: {
-        rssInput: '',
-        error: null,
+        rssUrl: {
+          valid: true,
+          error: null,
+        },
       },
       status: 'filling',
     },
     feeds: [],
+    error: null,
   };
 
   const elements = {
     form: document.querySelector('form'),
     btn: document.querySelector('button'),
     input: document.querySelector('input'),
+    example: document.querySelector('p.text-muted'),
     feeds: document.querySelector('.feeds'),
     posts: document.querySelector('.posts'),
   };
@@ -35,13 +53,30 @@ const app = () => {
     const formData = new FormData(e.target);
     const url = formData.get('url');
 
+    const error = validate(url);
+
+    if (error) {
+      watchedState.form.fields.rssUrl = {
+        valid: false,
+        error,
+      };
+      return;
+    }
+
+    watchedState.form.fields.rssUrl = {
+      error: null,
+      valid: true,
+    };
+
     try {
+      watchedState.error = null;
+      watchedState.form.status = 'loading';
       const xml = await getRss(url);
       watchedState.feeds = [...watchedState.feeds, ...parseXml(xml)];
+      watchedState.form.status = 'finished';
     } catch (err) {
-      const div = document.createElement('div');
-      elements.input.after(div);
-      div.textContent = err;
+      watchedState.form.status = 'failed';
+      watchedState.error = err.message;
     }
   });
 };

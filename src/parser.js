@@ -14,12 +14,4 @@ const parseXml = (xml) => {
   return channelData;
 };
 
-const outputRssData = (xml) => {
-  const data = parseXml(xml);
-  const [channel, ...rest] = data;
-  console.log(channel);
-  console.log('\n');
-  console.log(rest);
-};
-
 export default parseXml;
