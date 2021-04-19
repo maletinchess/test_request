@@ -24,13 +24,14 @@ const buildFeedsDiv = (state, elements) => {
 
 const renderFeeds = (state, elements) => {
   const { feeds } = state;
-  elements.posts.textContent = '';
+  elements.feeds.textContent = '';
   elements.posts.textContent = '';
   buildFeedsDiv(state, elements);
   const ul = document.createElement('ul');
   ul.classList.add('list-group');
   elements.posts.append(ul);
-  feeds.forEach((item) => {
+  const posts = feeds.filter((item) => item.type !== 'head');
+  posts.forEach((item) => {
     const a = document.createElement('a');
     const li = document.createElement('li');
     li.append(a);
