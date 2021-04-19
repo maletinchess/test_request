@@ -1,5 +1,5 @@
 import axios from 'axios';
-import yup from 'yup';
+import * as yup from 'yup';
 import initview from './view';
 import parseXml from './utils';
 
