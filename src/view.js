@@ -8,10 +8,13 @@ const buildFeedsDiv = (state, elements) => {
   head.textContent = 'Feeds';
   elements.feeds.append(head);
   const ul = document.createElement('ul');
+  ul.classList.add('list-group');
+  ul.classList.add('mb-5');
   head.after(ul);
   const datasForHeads = feeds.filter((item) => item.type === 'head');
   datasForHeads.forEach((data) => {
     const li = document.createElement('li');
+    li.classList.add('list-group-item');
     ul.append(li);
     const h = document.createElement('h');
     li.append(h);
