@@ -34,6 +34,7 @@ const app = () => {
       status: 'filling',
     },
     feeds: [],
+    urls: [],
     error: null,
   };
 
@@ -52,6 +53,16 @@ const app = () => {
 
     const formData = new FormData(e.target);
     const url = formData.get('url');
+
+    if (watchedState.urls.includes(url)) {
+      watchedState.form.fields.rssUrl = {
+        valid: false,
+        error: 'RSS is already exist',
+      };
+      return;
+    }
+
+    watchedState.urls = [url, ...watchedState.urls];
 
     const error = validate(url);
 
