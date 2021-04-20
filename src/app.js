@@ -69,7 +69,9 @@ const app = () => {
     if (error) {
       watchedState.form.fields.rssUrl = {
         valid: false,
-        error,
+        error: error === 'this must match the following: "/rss/"'
+          ? 'Resource does not contain a valid RSS'
+          : error,
       };
       return;
     }
