@@ -1,7 +1,5 @@
-import xmldom from 'xmldom';
-
 const parseXml = (xmlString) => {
-  const parser = new xmldom.DOMParser();
+  const parser = new DOMParser();
   const docXml = parser.parseFromString(xmlString);
   const itemsNode = docXml.getElementsByTagName('item');
   const channelNode = docXml.getElementsByTagName('channel');
