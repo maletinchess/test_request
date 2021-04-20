@@ -1,6 +1,6 @@
 const parseXml = (xmlString) => {
   const parser = new DOMParser();
-  const docXml = parser.parseFromString(xmlString, 'text/xml');
+  const docXml = parser.parseFromString(xmlString, 'application/xhtml+xml');
   console.log(docXml);
   const itemsNode = docXml.getElementsByTagName('item');
   const channelNode = docXml.getElementsByTagName('channel');
