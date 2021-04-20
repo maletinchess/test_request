@@ -22,6 +22,13 @@ const renderFormErrors = (form, elements) => {
   }
 };
 
+const renderAppErrors = (error, elements) => {
+  if (!error) return;
+  const appErrorElement = document.createElement('p');
+  elements.example.after(appErrorElement);
+  appErrorElement.textContent = error;
+};
+
 const buildFeedsDiv = (state, elements) => {
   const { feeds } = state;
   const head = document.createElement('h2');
@@ -69,6 +76,7 @@ const initview = (state, elements) => {
   const mapping = {
     feeds: () => renderFeeds(state, elements),
     'form.fields.rssUrl': () => renderFormErrors(state.form, elements),
+    error: () => renderAppErrors(state.error, elements),
   };
 
   const watchedState = onChange(state, (path) => {
