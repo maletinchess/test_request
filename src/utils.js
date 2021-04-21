@@ -2,10 +2,10 @@ const parseXml = (xmlString) => {
   const parser = new DOMParser();
   const docXml = parser.parseFromString(xmlString, 'text/xml');
   const itemsNode = docXml.getElementsByTagName('item');
-  const channelNode = docXml.getElementsByTagName('channel');
-  const channelTitle = channelNode[0].getElementsByTagName('title')[0].textContent;
-  console.log(channelTitle);
-  const id = channelTitle;
+  const feedTitle = docXml.getElementsByTagName('title')[0].textContent;
+  const feedDescription = docXml.getElementsByTagName('description')[0].textContent;
+  console.log([feedTitle, feedDescription]);
+  const id = feedTitle;
   const items = Object.values(itemsNode);
   const parsedItems = items
     .filter((item) => typeof (item) === 'object')
