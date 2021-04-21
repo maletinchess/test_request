@@ -4,7 +4,7 @@ const parseXml = (xmlString) => {
   const itemsNode = docXml.getElementsByTagName('item');
 
   const reduceData = (collection) => {
-    const cb = (item, acc) => {
+    const cb = (acc, item) => {
       const key = item.nodeName;
       const value = item.textContent;
       return { ...acc, [key]: value };
