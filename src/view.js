@@ -39,6 +39,7 @@ const buildFeedsDiv = (state, elements) => {
   ul.classList.add('mb-5');
   head.after(ul);
   const datasForHeads = feeds.filter((item) => item.type === 'head');
+  console.log(datasForHeads);
   datasForHeads.forEach((data) => {
     const li = document.createElement('li');
     li.classList.add('list-group-item');
