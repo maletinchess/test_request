@@ -8,7 +8,7 @@ const parseXml = (xmlString, parseTo) => {
     const cb = (acc, item) => {
       const key = item.nodeName;
       const value = item.textContent;
-      return { ...acc, [key]: value };
+      return { ...acc, [key]: value, id };
     };
     return collection.reduce(cb, {});
   };
