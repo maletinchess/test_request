@@ -4,6 +4,7 @@ const parseXml = (xmlString) => {
   const itemsNode = docXml.getElementsByTagName('item');
   const channelNode = docXml.getElementsByTagName('channel');
   const channelTitle = channelNode[0].getElementsByTagName('title')[0].textContent;
+  console.log(channelTitle);
   const id = channelTitle;
   const items = Object.values(itemsNode);
   const parsedItems = items
