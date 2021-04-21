@@ -86,6 +86,8 @@ const app = () => {
       watchedState.error = null;
       watchedState.form.status = 'loading';
       const xml = await getRss(url);
+      const postsCollection = [...watchedState.feeds, ...parseXml(xml, 'posts')];
+      console.log(postsCollection);
       watchedState.feeds = [...watchedState.feeds, ...parseXml(xml, 'posts')];
       console.log(watchedState.feeds);
       watchedState.form.status = 'finished';
