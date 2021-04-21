@@ -1,7 +1,8 @@
-const parseXml = (xmlString) => {
+const parseXml = (xmlString, parseTo) => {
   const parser = new DOMParser();
   const docXml = parser.parseFromString(xmlString, 'text/xml');
-  const itemsNode = docXml.getElementsByTagName('item');
+  const id = docXml.getElementsByTagName('title')[0].textContent;
+  const items = [...docXml.getElementsByTagName('item')];
 
   const reduceData = (collection) => {
     const cb = (acc, item) => {
@@ -12,32 +13,20 @@ const parseXml = (xmlString) => {
     return collection.reduce(cb, {});
   };
 
-  const itemsChildrenCollection = [...itemsNode].map((item) => [...item.children]);
-
-  console.log(
-    itemsChildrenCollection.map((coll) => reduceData(coll)),
-  );
-
-  const feedTitle = docXml.getElementsByTagName('title')[0].textContent;
-  const feedDescription = docXml.getElementsByTagName('description')[0].textContent;
-  const id = feedTitle;
-  const items = Object.values(itemsNode);
-  const parsedItems = items
-    .filter((item) => typeof (item) === 'object')
-    .map((item) => {
-      const title = item.getElementsByTagName('title')[0].textContent;
-      const link = item.getElementsByTagName('link')[0].textContent;
-      const description = item.getElementsByTagName('description')[0].textContent;
+  switch (parseTo) {
+    case 'feeds':
       return {
-        title,
-        link,
-        description,
+        title: id,
+        description: docXml.getElementsByTagName('description')[0].textContent,
         id,
-        type: title === id ? 'head' : 'post',
       };
-    });
-  console.log(parsedItems);
-  return parsedItems;
+    case 'posts':
+      return items
+        .map((item) => [...item.children])
+        .map((coll) => reduceData(coll));
+    default:
+      throw new Error(`Unknown type of parsing ${parseTo}`);
+  }
 };
 
 export default parseXml;
