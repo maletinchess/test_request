@@ -5,12 +5,15 @@ const parseXml = (xmlString, parseTo) => {
   const items = [...docXml.getElementsByTagName('item')];
 
   const reduceData = (collection) => {
+    const filtered = collection.filter((item) => item.nodeName === 'description'
+      || item.nodeName === 'title'
+      || item.nodeName === 'link');
     const cb = (acc, item) => {
       const key = item.nodeName;
       const value = item.textContent;
       return { ...acc, [key]: value, id };
     };
-    return collection.reduce(cb, {});
+    return filtered.reduce(cb, {});
   };
 
   switch (parseTo) {
