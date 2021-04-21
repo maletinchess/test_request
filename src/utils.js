@@ -12,9 +12,11 @@ const parseXml = (xmlString) => {
     return collection.reduce(cb, {});
   };
 
-  const collection = [...itemsNode].map((item) => [...item.children]);
+  const itemsChildrenCollection = [...itemsNode].map((item) => [...item.children]);
 
-  console.log(reduceData(collection));
+  console.log(
+    itemsChildrenCollection.map((coll) => reduceData(coll)),
+  );
 
   const feedTitle = docXml.getElementsByTagName('title')[0].textContent;
   const feedDescription = docXml.getElementsByTagName('description')[0].textContent;
