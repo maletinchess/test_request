@@ -2,7 +2,9 @@ const parseXml = (xmlString) => {
   const parser = new DOMParser();
   const docXml = parser.parseFromString(xmlString, 'text/xml');
   const itemsNode = docXml.getElementsByTagName('item');
-  console.log([...itemsNode]);
+  console.log(
+    [...itemsNode].map((item) => [...item.children]),
+  );
   const feedTitle = docXml.getElementsByTagName('title')[0].textContent;
   const feedDescription = docXml.getElementsByTagName('description')[0].textContent;
   console.log([feedTitle, feedDescription]);
