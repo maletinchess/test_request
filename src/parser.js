@@ -15,3 +15,5 @@ const parseXml = (xml) => {
 };
 
 export default parseXml;
+
+const url = 'https://ru.wikipedia.org/w/api.php?hidebots=1&hidecategorization=1&hideWikibase=1&urlversion=1&days=7&limit=50&action=feedrecentchanges&feedformat=rss';
