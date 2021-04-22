@@ -90,6 +90,7 @@ const app = () => {
 
       watchedState.posts = [...watchedState.posts, ...parseXml(xml, 'posts')];
       watchedState.feeds = [...watchedState.feeds, ...parseXml(xml, 'feeds')];
+      console.log(watchedState.feeds);
       watchedState.form.status = 'finished';
     } catch (err) {
       watchedState.form.status = 'failed';
