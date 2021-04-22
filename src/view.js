@@ -29,8 +29,8 @@ const renderAppErrors = (error, elements) => {
   appErrorElement.textContent = error;
 };
 
-const buildFeedsDiv = (state, elements) => {
-  const { feeds } = state;
+const renderFeeds = (feeds, elements) => {
+  elements.feeds.textContent = '';
   const head = document.createElement('h2');
   head.textContent = 'Feeds';
   elements.feeds.append(head);
@@ -38,29 +38,24 @@ const buildFeedsDiv = (state, elements) => {
   ul.classList.add('list-group');
   ul.classList.add('mb-5');
   head.after(ul);
-  const datasForHeads = feeds.filter((item) => item.type === 'head');
-  datasForHeads.forEach((data) => {
+  feeds.forEach((feed) => {
     const li = document.createElement('li');
     li.classList.add('list-group-item');
     ul.append(li);
     const h = document.createElement('h3');
     li.append(h);
-    h.textContent = data.title;
+    h.textContent = feed.title;
     const p = document.createElement('p');
     h.after(p);
-    p.textContent = data.description;
+    p.textContent = feed.description;
   });
 };
 
-const renderFeeds = (state, elements) => {
-  const { feeds } = state;
-  elements.feeds.textContent = '';
+const renderPosts = (posts, elements) => {
   elements.posts.textContent = '';
-  buildFeedsDiv(state, elements);
   const ul = document.createElement('ul');
   ul.classList.add('list-group');
   elements.posts.append(ul);
-  const posts = feeds.filter((item) => item.type !== 'head');
   posts.forEach((item) => {
     const a = document.createElement('a');
     const li = document.createElement('li');
@@ -74,7 +69,8 @@ const renderFeeds = (state, elements) => {
 
 const initview = (state, elements) => {
   const mapping = {
-    feeds: () => renderFeeds(state, elements),
+    feeds: () => renderFeeds(state.feeds, elements),
+    posts: () => renderPosts(state.posts, elements),
     'form.fields.rssUrl': () => renderFormErrors(state.form, elements),
     error: () => renderAppErrors(state.error, elements),
   };
