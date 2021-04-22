@@ -89,7 +89,7 @@ const app = () => {
       const xml = await getRss(url);
 
       watchedState.posts = [...watchedState.posts, ...parseXml(xml, 'posts')];
-      watchedState.feeds = [...watchedState.feeds, ...parseXml(xml, 'feeds')];
+      watchedState.feeds = [...watchedState.feeds, parseXml(xml, 'feeds')];
       console.log(watchedState.feeds);
       watchedState.form.status = 'finished';
     } catch (err) {
