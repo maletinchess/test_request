@@ -1,12 +1,21 @@
 import axios from 'axios';
 import * as yup from 'yup';
 import initview from './view';
-import parseXml from './utils';
+import parseXml from './parser';
 
 const getRss = async (url) => {
   const proxy = 'https://hexlet-allorigins.herokuapp.com/raw?url=';
   const response = await axios.get(`${proxy}${encodeURIComponent(url)}`);
   return response.data;
+};
+
+const checkDoubling = (currentUrls, url) => currentUrls.includes(url);
+
+const setId = (item, id) => {
+  const result = {
+    ...item, id,
+  };
+  return result;
 };
 
 const validate = (value) => {
@@ -36,7 +45,8 @@ const app = () => {
     },
     feeds: [],
     posts: [],
-    urls: [],
+    links: [],
+    linksCount: 0,
     error: null,
   };
 
@@ -56,15 +66,15 @@ const app = () => {
     const formData = new FormData(e.target);
     const url = formData.get('url');
 
-    if (watchedState.urls.includes(url)) {
+    const urls = watchedState.links.map((link) => link.url);
+
+    if (checkDoubling(urls, url)) {
       watchedState.form.fields.rssUrl = {
+        error: 'RSS is exist already',
         valid: false,
-        error: 'RSS is already exist',
       };
       return;
     }
-
-    watchedState.urls = [url, ...watchedState.urls];
 
     const error = validate(url);
 
@@ -78,6 +88,15 @@ const app = () => {
       return;
     }
 
+    watchedState.linksCount += 1;
+
+    const link = {
+      url,
+      id: watchedState.linksCount,
+    };
+
+    watchedState.links = [link, ...watchedState.links];
+
     watchedState.form.fields.rssUrl = {
       error: null,
       valid: true,
@@ -87,10 +106,12 @@ const app = () => {
       watchedState.error = null;
       watchedState.form.status = 'loading';
       const xml = await getRss(url);
-      console.log(parseXml(xml, 'feeds'));
-      watchedState.posts = [...watchedState.posts, ...parseXml(xml, 'posts')];
-      watchedState.feeds = [...watchedState.feeds, parseXml(xml, 'feeds')];
-
+      const data = parseXml(xml);
+      const id = watchedState.linksCount;
+      const posts = data.posts.map((post) => setId(post, id));
+      const feed = setId(data.feed, id);
+      watchedState.posts = [...watchedState.posts, ...posts];
+      watchedState.feeds = [...watchedState.feeds, feed];
       watchedState.form.status = 'finished';
     } catch (err) {
       watchedState.form.status = 'failed';

@@ -1,17 +1,34 @@
-const parseXml = (xml) => {
-  const parseItem = (itemStr) => {
-    const title = itemStr.split('</title>')[0].split('<title>')[1].trim();
-    const link = itemStr.split('</link>')[0].split('<link>')[1];
-    const description = itemStr.split('</description>')[0].split('<description>')[1];
-    return {
-      title,
-      link,
-      description,
+const parseXml = (xmlString) => {
+  const parser = new DOMParser();
+  const docXml = parser.parseFromString(xmlString, 'text/xml');
+  const title = docXml.getElementsByTagName('title')[0].textContent;
+  const items = [...docXml.getElementsByTagName('item')];
+
+  const reduceData = (collection) => {
+    const filtered = collection.filter((item) => item.nodeName === 'description'
+      || item.nodeName === 'title'
+      || item.nodeName === 'link');
+    const cb = (acc, item) => {
+      const key = item.nodeName;
+      const value = item.textContent;
+      return { ...acc, [key]: value };
     };
+    return filtered.reduce(cb, {});
   };
 
-  const channelData = xml.split('<item>').map((item) => parseItem(item));
-  return channelData;
+  const feeds = {
+    title,
+    description: docXml.getElementsByTagName('description')[0].textContent,
+  };
+
+  const posts = items
+    .map((item) => [...item.children])
+    .map((coll) => reduceData(coll));
+
+  return {
+    feeds,
+    posts,
+  };
 };
 
 export default parseXml;
