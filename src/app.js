@@ -107,6 +107,7 @@ const app = () => {
       watchedState.form.status = 'loading';
       const xml = await getRss(url);
       const data = parseXml(xml);
+      console.log(data);
       const id = watchedState.linksCount;
       const posts = data.posts.map((post) => setId(post, id));
       const feed = setId(data.feed, id);

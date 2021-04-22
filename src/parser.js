@@ -16,7 +16,7 @@ const parseXml = (xmlString) => {
     return filtered.reduce(cb, {});
   };
 
-  const feeds = {
+  const feed = {
     title,
     description: docXml.getElementsByTagName('description')[0].textContent,
   };
@@ -26,7 +26,7 @@ const parseXml = (xmlString) => {
     .map((coll) => reduceData(coll));
 
   return {
-    feeds,
+    feed,
     posts,
   };
 };
