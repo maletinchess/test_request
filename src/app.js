@@ -118,18 +118,6 @@ const app = () => {
       watchedState.error = err.message;
     }
   });
-
-  setInterval(() => {
-    watchedState.links.forEach((link) => {
-      const xml = getRss(link.url);
-      const data = parseXml(xml);
-      const filteredFeeds = watchedState.feeds.filter((feed) => feed.id !== link.id);
-      const filteredPosts = watchedState.posts.filter((post) => post.id !== link.id);
-      watchedState.feeds = [...filteredFeeds, setId(data.feed, link.id)];
-      const updatedPosts = data.posts.map((post) => setId(post, link.id));
-      watchedState.posts = [...filteredPosts, ...updatedPosts];
-    });
-  }, 2000);
 };
 
 export default app;
