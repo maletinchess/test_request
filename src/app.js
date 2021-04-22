@@ -110,6 +110,7 @@ const app = () => {
       const id = watchedState.linksCount;
       const posts = data.posts.map((post) => setId(post, id));
       const feed = setId(data.feed, id);
+      console.log(feed);
       watchedState.posts = [...watchedState.posts, ...posts];
       watchedState.feeds = [...watchedState.feeds, feed];
       watchedState.form.status = 'finished';
