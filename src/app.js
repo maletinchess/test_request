@@ -122,6 +122,7 @@ const app = () => {
   const updateLink = async (link) => {
     const xml = await getRss(link.url);
     watchedState.test = xml;
+    console.log(watchedState.test);
   };
 
   const autoUpdate = () => {
