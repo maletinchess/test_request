@@ -67,6 +67,11 @@ const renderPosts = (posts, elements) => {
   });
 };
 
+const renderTest = (state) => {
+  const testElement = document.createElement('div');
+  testElement.textContent = state.test;
+};
+
 const initview = (state, elements) => {
   const mapping = {
     feeds: () => renderFeeds(state.feeds, elements),

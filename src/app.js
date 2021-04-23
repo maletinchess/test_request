@@ -48,6 +48,7 @@ const app = () => {
     links: [],
     linksCount: 0,
     error: null,
+    test: '',
   };
 
   const elements = {
@@ -88,24 +89,23 @@ const app = () => {
       return;
     }
 
-    watchedState.linksCount += 1;
-
-    const link = {
-      url,
-      id: watchedState.linksCount,
-    };
-
-    watchedState.links = [link, ...watchedState.links];
-
-    watchedState.form.fields.rssUrl = {
-      error: null,
-      valid: true,
-    };
-
     try {
+      watchedState.linksCount += 1;
+
+      watchedState.form.fields.rssUrl = {
+        error: null,
+        valid: true,
+      };
       watchedState.error = null;
       watchedState.form.status = 'loading';
       const xml = await getRss(url);
+      const link = {
+        url,
+        id: watchedState.linksCount,
+        xml,
+      };
+
+      watchedState.links = [link, ...watchedState.links];
       const data = parseXml(xml);
       const id = watchedState.linksCount;
       const posts = data.posts.map((post) => setId(post, id));
@@ -118,6 +118,21 @@ const app = () => {
       watchedState.error = err.message;
     }
   });
+
+  const updateLink = async (link) => {
+    const xml = await getRss(link.url);
+    watchedState.test = xml;
+  };
+
+  const autoUpdate = () => {
+    setInterval(() => {
+      watchedState.links.forEach((link) => {
+        updateLink(link);
+      });
+    }, 5000);
+  };
+
+  autoUpdate();
 };
 
 export default app;
