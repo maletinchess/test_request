@@ -78,6 +78,7 @@ const initview = (state, elements) => {
     posts: () => renderPosts(state.posts, elements),
     'form.fields.rssUrl': () => renderFormErrors(state.form, elements),
     error: () => renderAppErrors(state.error, elements),
+    test: () => renderTest(state);
   };
 
   const watchedState = onChange(state, (path) => {
