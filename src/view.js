@@ -67,9 +67,10 @@ const renderPosts = (posts, elements) => {
   });
 };
 
-const renderTest = (state) => {
+const renderTest = (state, elements) => {
   const testElement = document.createElement('div');
   testElement.textContent = state.test;
+  elements.posts.after(testElement);
 };
 
 const initview = (state, elements) => {
