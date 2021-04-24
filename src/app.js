@@ -122,7 +122,7 @@ const app = () => {
   const updateLink = async (link) => {
     const xml = await getRss(link.url);
     const currentXml = link.xml;
-    if (xml !== currentXml) {
+    if (xml === currentXml) {
       watchedState.test = xml;
     }
   };
