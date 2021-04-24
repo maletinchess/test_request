@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import axios from 'axios';
 import * as yup from 'yup';
 import initview from './view';
@@ -16,6 +18,26 @@ const setId = (item, id) => {
     ...item, id,
   };
   return result;
+};
+
+const genDataOfLink = (link, newXml, state) => {
+  link.xml = newXml;
+  const { id } = link;
+  const data = parseXml(newXml);
+  const posts = data.posts.map((post) => setId(post, id));
+  const feed = setId(data.feed, id);
+  state.posts = [...state.posts, ...posts];
+  state.feeds = [...state.feeds, feed];
+};
+
+const saveLink = (url, xml, state) => {
+  state.linksCount += 1;
+  const link = {
+    url,
+    xml,
+    id: state.linksCount,
+  };
+  state.links = [link, ...state.links];
 };
 
 const validate = (value) => {
@@ -120,10 +142,9 @@ const app = () => {
   });
 
   const updateLink = async (link) => {
-    const xml = await getRss(link.url);
-    const currentXml = link.xml;
-    if (xml === currentXml) {
-      watchedState.test = xml;
+    const newXml = await getRss(link.url);
+    if (link.xml !== newXml) {
+      genDataOfLink(link, newXml, watchedState);
     }
   };
 
