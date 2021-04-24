@@ -121,8 +121,10 @@ const app = () => {
 
   const updateLink = async (link) => {
     const xml = await getRss(link.url);
-    watchedState.test = xml;
-    console.log(watchedState.test);
+    const currentXml = link.xml;
+    if (xml !== currentXml) {
+      watchedState.test = xml;
+    }
   };
 
   const autoUpdate = () => {
