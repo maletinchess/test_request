@@ -94,7 +94,7 @@ const renderAppError = (error, elements) => {
 
 const initview = (state, elements) => {
   const mapping = {
-    dataProcess: () => renderForm(state, elements),
+    dataProcess: () => renderForm(state.dataProcess, elements),
     error: () => renderAppError(state.error, elements),
     'form.fields.rssUrl': () => renderFormError(state.form, elements),
     feeds: () => renderFeeds(state.feeds, elements),
