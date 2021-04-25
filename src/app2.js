@@ -13,19 +13,20 @@ const getRss = async (url) => {
 
 const isExist = (currentUrls, url) => currentUrls.includes(url);
 
-const updateLinksData = (url, xml, state) => {
+const addLinksData = (url, xml, state, id) => {
   const link = {
     url,
     xml,
+    id,
   };
   state.links = [...state.links, link];
 };
 
-const updateDataForRendering = (data, state) => {
+const addDataForRendering = (data, state, id) => {
   const { feed } = data;
   const { posts } = data;
-  state.feeds = [...state.feeds, feed];
-  state.posts = [...state.posts, ...posts];
+  state.feeds = [...state.feeds, { ...feed, id }];
+  state.posts = [...state.posts, ...posts.map((post) => ({ ...post, id }))];
 };
 
 const validate = (value) => {
@@ -108,8 +109,11 @@ const app = () => {
       watchedState.dataProcess = 'loading';
       const xml = await getRss(url);
       const data = parseXml(xml);
-      updateLinksData(url, xml, watchedState);
-      updateDataForRendering(data, watchedState);
+      watchedState.linksCount += 1;
+      const id = watchedState.linksCount;
+      addLinksData(url, xml, watchedState, id);
+      addDataForRendering(data, watchedState, id);
+      console.log(watchedState);
       watchedState.dataProcess = 'added';
     } catch (err) {
       watchedState.dataProcess = 'failed';
