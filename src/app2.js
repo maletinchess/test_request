@@ -33,6 +33,7 @@ const updater = (state) => {
     state.feeds = [...filteredFeeds, newFeed];
     const newPosts = data.posts.map((post) => ({ ...post, id }));
     state.posts = [...filteredPosts, ...newPosts];
+    state.dataProcess = 'added';
   });
 };
 
@@ -119,7 +120,6 @@ const app = () => {
     try {
       watchedState.dataProcess = 'loading';
       updater(watchedState);
-      watchedState.dataProcess = 'added';
       console.log(watchedState);
     } catch (err) {
       watchedState.dataProcess = 'failed';
