@@ -102,7 +102,7 @@ const renderFormError = (form, elements) => {
     elements.input.classList.remove('is-invalid');
   } else {
     elements.input.classList.add('is-invalid');
-    elements.feedback.classList.add('danger-text');
+    elements.feedback.classList.add('text-danger');
     elements.feedback.textContent = url.error;
   }
 };
@@ -110,10 +110,10 @@ const renderFormError = (form, elements) => {
 const renderAppError = (error, elements) => {
   if (!error) {
     elements.feedback.textContent = '';
-    elements.classList.remove('danger-text');
+    elements.feedback.classList.remove('danger-text');
   } else {
     elements.feedback.textContent = error;
-    elements.feedback.classList.add('danger-text');
+    elements.feedback.classList.add('text-danger');
   }
 };
 
