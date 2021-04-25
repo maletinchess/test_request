@@ -116,28 +116,6 @@ const app = () => {
       watchedState.error = err.message;
     }
   });
-
-  const updateLink = async (link) => {
-    const currentXml = link.xml;
-    const currentData = parseXml(currentXml);
-    const newXml = await getRss(link.url);
-    const newData1 = parseXml(newXml);
-    console.log([currentData, newData1]);
-    updateLinksData(link.url, newXml, watchedState);
-    const newData = parseXml(newXml);
-    updateDataForRendering(newData, watchedState);
-    watchedState.dataProcess = 'updated';
-  };
-
-  const autoUpdate = () => {
-    setInterval(() => {
-      watchedState.links.forEach((link) => {
-        updateLink(link);
-      });
-    }, 10000);
-  };
-
-  autoUpdate();
 };
 
 export default app;
