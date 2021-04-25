@@ -21,6 +21,8 @@ const addLink = (url, state, id) => {
   state.links = [...state.links, link];
 };
 
+const delay = 2000;
+
 const updater = (state) => {
   const { links, feeds, posts } = state;
   links.forEach(async (link) => {
@@ -35,6 +37,7 @@ const updater = (state) => {
     state.posts = [...filteredPosts, ...newPosts];
     state.dataProcess = 'added';
   });
+  setTimeout(updater(state), delay);
 };
 
 const validate = (value) => {
@@ -110,21 +113,19 @@ const app = () => {
 
     watchedState.linksCount += 1;
     addLink(url, watchedState, watchedState.linksCount);
-
     watchedState.form.fields.rssUrl = {
       error: null,
       valid: true,
     };
     watchedState.error = null;
-
-    try {
-      updater(watchedState);
-      console.log(watchedState);
-    } catch (err) {
-      watchedState.dataProcess = 'failed';
-      watchedState.error = err.message;
-    }
   });
+
+  try {
+    updater(watchedState);
+  } catch (err) {
+    watchedState.dataProcess = 'failed';
+    watchedState.error = err.message;
+  }
 };
 
 export default app;
