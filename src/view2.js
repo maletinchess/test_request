@@ -62,6 +62,7 @@ const renderForm = (dataProcess, elements) => {
       elements.input.removeAttribute('disabled');
       elements.input.value = '';
       elements.feedback.classList.add('text-success');
+      elements.feedback.classList.remove('text-danger');
       elements.feedback.textContent = 'RSS loaded';
       break;
     default:
