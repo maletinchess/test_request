@@ -35,7 +35,6 @@ const updater = (state) => {
     state.posts = [...filteredPosts, ...newPosts];
     state.dataProcess = 'added';
   });
-  setTimeout(updater(state), 2000);
 };
 
 const validate = (value) => {
