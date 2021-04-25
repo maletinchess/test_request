@@ -113,10 +113,6 @@ const app = () => {
 
     watchedState.linksCount += 1;
     addLink(url, watchedState, watchedState.linksCount);
-    watchedState.form.fields.rssUrl = {
-      error: null,
-      valid: true,
-    };
     watchedState.error = null;
   });
 
