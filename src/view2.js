@@ -81,6 +81,7 @@ const dataProcessHandler = (state, elements) => {
       renderForm('failed', elements);
       break;
     case 'added':
+      console.log(elements.feeds);
       renderFeeds(state.feeds, elements);
       renderPosts(state.posts, elements);
       renderForm('added', elements);
