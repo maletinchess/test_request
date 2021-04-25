@@ -33,7 +33,6 @@ const updater = (state) => {
     state.feeds = [...filteredFeeds, newFeed];
     const newPosts = data.posts.map((post) => ({ ...post, id }));
     state.posts = [...filteredPosts, ...newPosts];
-    state.dataProcess = 'added';
   });
 };
 
