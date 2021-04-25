@@ -134,6 +134,7 @@ const app = () => {
       const newData = parseXml(newXml);
       updateDataForRendering(newData, watchedState, link.id);
       watchedState.processData = 'updated';
+      console.log(watchedState);
     }
   };
 
