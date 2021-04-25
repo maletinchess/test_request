@@ -112,6 +112,7 @@ const app = () => {
       updateDataForRendering(data, watchedState);
       watchedState.processData = 'added';
       console.log(watchedState);
+      console.log(elements.posts);
     } catch (err) {
       watchedState.processData = 'failed';
       watchedState.error = err.message;
