@@ -137,6 +137,8 @@ const app = () => {
       });
     }, 5000);
   };
+
+  setTimeout(() => autoUpdate(), 5000);
 };
 
 export default app;
