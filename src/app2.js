@@ -121,6 +121,7 @@ const app = () => {
       updateLinksData(url, xml, watchedState, id);
       updateDataForRendering(data, watchedState, id);
       watchedState.processData = 'added';
+      console.log(watchedState);
     } catch (err) {
       watchedState.processData = 'failed';
       watchedState.error = err.message;
@@ -134,7 +135,6 @@ const app = () => {
       const newData = parseXml(newXml);
       updateDataForRendering(newData, watchedState, link.id);
       watchedState.processData = 'updated';
-      console.log(watchedState);
     }
   };
 
