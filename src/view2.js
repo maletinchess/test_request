@@ -70,31 +70,6 @@ const renderForm = (dataProcess, elements) => {
   }
 };
 
-const dataProcessHandler = (state, elements) => {
-  switch (state.dataProcess) {
-    case 'filling':
-      renderForm('filling', elements);
-      break;
-    case 'loading':
-      renderForm('loading', elements);
-      break;
-    case 'failed':
-      renderForm('failed', elements);
-      break;
-    case 'added':
-      renderFeeds(state.feeds, elements);
-      renderPosts(state.posts, elements);
-      renderForm('added', elements);
-      break;
-    case 'updated':
-      renderFeeds(state.feeds, elements);
-      renderPosts(state.posts, elements);
-      break;
-    default:
-      throw new Error(`Unknown process state ${state.dataProcess}`);
-  }
-};
-
 const renderFormError = (form, elements) => {
   const url = form.fields.rssUrl;
   if (url.valid) {
@@ -119,7 +94,7 @@ const renderAppError = (error, elements) => {
 
 const initview = (state, elements) => {
   const mapping = {
-    dataProcess: () => dataProcessHandler(state, elements),
+    dataProcess: () => renderForm(state, elements),
     error: () => renderAppError(state.error, elements),
     'form.fields.rssUrl': () => renderFormError(state.form, elements),
     feeds: () => renderFeeds(state.feeds, elements),

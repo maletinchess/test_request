@@ -115,10 +115,12 @@ const app = () => {
       valid: true,
     };
     watchedState.error = null;
+    watchedState.dataProcess = 'loading';
 
     try {
       updater(watchedState);
       console.log(watchedState);
+      watchedState.dataProcess = 'added';
     } catch (err) {
       watchedState.dataProcess = 'failed';
       watchedState.error = err.message;
