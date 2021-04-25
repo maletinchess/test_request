@@ -108,7 +108,6 @@ const app = () => {
     }
 
     try {
-      console.log(watchedState);
       watchedState.linksCount += 1;
       const id = watchedState.linksCount;
       watchedState.form.fields.rssUrl = {
