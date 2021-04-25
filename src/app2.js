@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import * as yup from 'yup';
-import initview from './view';
+import initview from './view2';
 import parseXml from './parser';
 
 const getRss = async (url) => {
@@ -11,7 +11,7 @@ const getRss = async (url) => {
   return response.data;
 };
 
-const checkDoubling = (currentUrls, url) => currentUrls.includes(url);
+const isExist = (currentUrls, url) => currentUrls.includes(url);
 
 const setId = (item, id) => {
   const result = {
@@ -20,14 +20,20 @@ const setId = (item, id) => {
   return result;
 };
 
-const genDataOfLink = (link, newXml, state) => {
-  link.xml = newXml;
-  const { id } = link;
-  const data = parseXml(newXml);
-  const posts = data.posts.map((post) => setId(post, id));
-  const feed = setId(data.feed, id);
-  state.posts = [...state.posts, ...posts];
-  state.feeds = [...state.feeds, feed];
+const updateLinksData = (url, xml, state, id) => {
+  const link = {
+    url,
+    xml,
+    id,
+  };
+  state.links = [...state.links, link];
+};
+
+const updateDataForRendering = (data, state, id) => {
+  const { feed } = data;
+  const { posts } = data;
+  state.feeds = [...state.feeds, { ...feed, id }];
+  state.posts = [...state.posts, posts.map((post) => setId(post))];
 };
 
 const validate = (value) => {
@@ -65,7 +71,7 @@ const app = () => {
 
   const elements = {
     form: document.querySelector('form'),
-    btn: document.querySelector('button'),
+    submitBtn: document.querySelector('button'),
     input: document.querySelector('input'),
     example: document.querySelector('p.text-muted'),
     feedback: document.querySelector('div.feedback'),
@@ -74,6 +80,7 @@ const app = () => {
   };
 
   const watchedState = initview(state, elements);
+
   elements.form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -81,8 +88,7 @@ const app = () => {
     const url = formData.get('url');
 
     const urls = watchedState.links.map((link) => link.url);
-
-    if (checkDoubling(urls, url)) {
+    if (isExist(urls, url)) {
       watchedState.form.fields.rssUrl = {
         error: 'RSS is exist already',
         valid: false,
@@ -91,7 +97,6 @@ const app = () => {
     }
 
     const error = validate(url);
-
     if (error) {
       watchedState.form.fields.rssUrl = {
         valid: false,
@@ -104,7 +109,7 @@ const app = () => {
 
     try {
       watchedState.linksCount += 1;
-
+      const id = watchedState.linksCount;
       watchedState.form.fields.rssUrl = {
         error: null,
         valid: true,
@@ -112,22 +117,12 @@ const app = () => {
       watchedState.error = null;
       watchedState.form.status = 'loading';
       const xml = await getRss(url);
-      const link = {
-        url,
-        id: watchedState.linksCount,
-        xml,
-      };
-
-      watchedState.links = [link, ...watchedState.links];
       const data = parseXml(xml);
-      const id = watchedState.linksCount;
-      const posts = data.posts.map((post) => setId(post, id));
-      const feed = setId(data.feed, id);
-      watchedState.posts = [...watchedState.posts, ...posts];
-      watchedState.feeds = [...watchedState.feeds, feed];
-      watchedState.form.status = 'finished';
+      updateLinksData(url, xml, watchedState, id);
+      updateDataForRendering(data, watchedState, id);
+      watchedState.processData = 'added';
     } catch (err) {
-      watchedState.form.status = 'failed';
+      watchedState.processData = 'failed';
       watchedState.error = err.message;
     }
   });
@@ -135,7 +130,10 @@ const app = () => {
   const updateLink = async (link) => {
     const newXml = await getRss(link.url);
     if (link.xml !== newXml) {
-      genDataOfLink(link, newXml, watchedState);
+      updateLinksData(link.url, newXml, watchedState, link.id);
+      const newData = parseXml(newXml);
+      updateDataForRendering(newData, watchedState, link.id);
+      watchedState.processData = 'updated';
     }
   };
 

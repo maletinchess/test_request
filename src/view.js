@@ -2,13 +2,6 @@
 
 import onChange from 'on-change';
 
-const buildErrorElement = (error) => {
-  const el = document.createElement('div');
-  el.classList.add('text-danger');
-  el.textContent = error;
-  return el;
-};
-
 const renderFormErrors = (form, elements) => {
   const error = elements.example.nextSibling;
   if (error) {
@@ -17,8 +10,7 @@ const renderFormErrors = (form, elements) => {
 
   const url = form.fields.rssUrl;
   if (!url.valid) {
-    const errorElement = buildErrorElement(url.error);
-    elements.example.after(errorElement);
+    elements.feedback.textContent = url.error;
   }
 };
 
