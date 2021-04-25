@@ -111,8 +111,6 @@ const app = () => {
       updateLinksData(url, xml, watchedState);
       updateDataForRendering(data, watchedState);
       watchedState.dataProcess = 'added';
-      console.log(watchedState);
-      console.log(elements.posts);
     } catch (err) {
       watchedState.dataProcess = 'failed';
       watchedState.error = err.message;
@@ -120,8 +118,12 @@ const app = () => {
   });
 
   const updateLink = async (link) => {
+    const currentXml = link.xml;
+    const currentData = parseXml(currentXml);
     const newXml = await getRss(link.url);
-    console.log(link);
+    console.log([newXml, currentXml]);
+    const newData1 = parseXml(newXml);
+    console.log([currentData, newData1]);
     if (link.xml !== newXml) {
       updateLinksData(link.url, newXml, watchedState);
       const newData = parseXml(newXml);
