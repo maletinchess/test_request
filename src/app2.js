@@ -105,16 +105,16 @@ const app = () => {
         valid: true,
       };
       watchedState.error = null;
-      watchedState.form.status = 'loading';
+      watchedState.dataProcess = 'loading';
       const xml = await getRss(url);
       const data = parseXml(xml);
       updateLinksData(url, xml, watchedState);
       updateDataForRendering(data, watchedState);
-      watchedState.processData = 'added';
+      watchedState.dataProcess = 'added';
       console.log(watchedState);
       console.log(elements.posts);
     } catch (err) {
-      watchedState.processData = 'failed';
+      watchedState.dataProcess = 'failed';
       watchedState.error = err.message;
     }
   });
@@ -126,7 +126,7 @@ const app = () => {
       updateLinksData(link.url, newXml, watchedState);
       const newData = parseXml(newXml);
       updateDataForRendering(newData, watchedState);
-      watchedState.processData = 'updated';
+      watchedState.dataProcess = 'updated';
     }
   };
 
