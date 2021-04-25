@@ -121,15 +121,12 @@ const app = () => {
     const currentXml = link.xml;
     const currentData = parseXml(currentXml);
     const newXml = await getRss(link.url);
-    console.log([newXml, currentXml]);
     const newData1 = parseXml(newXml);
     console.log([currentData, newData1]);
-    if (link.xml !== newXml) {
-      updateLinksData(link.url, newXml, watchedState);
-      const newData = parseXml(newXml);
-      updateDataForRendering(newData, watchedState);
-      watchedState.dataProcess = 'updated';
-    }
+    updateLinksData(link.url, newXml, watchedState);
+    const newData = parseXml(newXml);
+    updateDataForRendering(newData, watchedState);
+    watchedState.dataProcess = 'updated';
   };
 
   const autoUpdate = () => {
@@ -137,10 +134,10 @@ const app = () => {
       watchedState.links.forEach((link) => {
         updateLink(link);
       });
-    }, 5000);
+    }, 1000);
   };
 
-  setTimeout(() => autoUpdate(), 5000);
+  autoUpdate();
 };
 
 export default app;
