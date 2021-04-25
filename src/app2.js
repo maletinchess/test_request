@@ -109,14 +109,15 @@ const app = () => {
 
     watchedState.linksCount += 1;
     addLink(url, watchedState, watchedState.linksCount);
-    watchedState.dataProcess = 'loading';
+
+    watchedState.form.fields.rssUrl = {
+      error: null,
+      valid: true,
+    };
+    watchedState.error = null;
 
     try {
-      watchedState.form.fields.rssUrl = {
-        error: null,
-        valid: true,
-      };
-      watchedState.error = null;
+      watchedState.dataProcess = 'loading';
       updater(watchedState);
       watchedState.dataProcess = 'added';
       console.log(watchedState);
