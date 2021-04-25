@@ -13,13 +13,6 @@ const getRss = async (url) => {
 
 const isExist = (currentUrls, url) => currentUrls.includes(url);
 
-const setId = (item, id) => {
-  const result = {
-    ...item, id,
-  };
-  return result;
-};
-
 const updateLinksData = (url, xml, state) => {
   const link = {
     url,

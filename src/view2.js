@@ -25,7 +25,8 @@ const renderFeeds = (feeds, elements) => {
 };
 
 const renderPosts = (posts, elements) => {
-  elements.posts.textContent = '';
+  console.log(elements.posts);
+  elements.posts.innerHTML = '';
   const ul = document.createElement('ul');
   ul.classList.add('list-group');
   elements.posts.append(ul);
