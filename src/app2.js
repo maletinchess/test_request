@@ -118,7 +118,6 @@ const app = () => {
     watchedState.error = null;
 
     try {
-      watchedState.dataProcess = 'loading';
       updater(watchedState);
       console.log(watchedState);
     } catch (err) {
