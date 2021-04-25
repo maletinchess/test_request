@@ -122,6 +122,8 @@ const initview = (state, elements) => {
     dataProcess: () => dataProcessHandler(state, elements),
     error: () => renderAppError(state.error, elements),
     'form.fields.rssUrl': () => renderFormError(state.form, elements),
+    feeds: () => renderFeeds(state.feeds, elements),
+    posts: () => renderPosts(state.posts, elements),
   };
 
   const watchedState = onChange(state, (path) => {
