@@ -20,20 +20,19 @@ const setId = (item, id) => {
   return result;
 };
 
-const updateLinksData = (url, xml, state, id) => {
+const updateLinksData = (url, xml, state) => {
   const link = {
     url,
     xml,
-    id,
   };
   state.links = [...state.links, link];
 };
 
-const updateDataForRendering = (data, state, id) => {
+const updateDataForRendering = (data, state) => {
   const { feed } = data;
   const { posts } = data;
-  state.feeds = [...state.feeds, { ...feed, id }];
-  state.posts = [...state.posts, posts.map((post) => setId(post))];
+  state.feeds = [...state.feeds, feed];
+  state.posts = [...state.posts, ...posts];
 };
 
 const validate = (value) => {
@@ -108,8 +107,6 @@ const app = () => {
     }
 
     try {
-      watchedState.linksCount += 1;
-      const id = watchedState.linksCount;
       watchedState.form.fields.rssUrl = {
         error: null,
         valid: true,
@@ -118,8 +115,8 @@ const app = () => {
       watchedState.form.status = 'loading';
       const xml = await getRss(url);
       const data = parseXml(xml);
-      updateLinksData(url, xml, watchedState, id);
-      updateDataForRendering(data, watchedState, id);
+      updateLinksData(url, xml, watchedState);
+      updateDataForRendering(data, watchedState);
       watchedState.processData = 'added';
       console.log(watchedState);
     } catch (err) {
@@ -130,10 +127,11 @@ const app = () => {
 
   const updateLink = async (link) => {
     const newXml = await getRss(link.url);
+    console.log(link);
     if (link.xml !== newXml) {
-      updateLinksData(link.url, newXml, watchedState, link.id);
+      updateLinksData(link.url, newXml, watchedState);
       const newData = parseXml(newXml);
-      updateDataForRendering(newData, watchedState, link.id);
+      updateDataForRendering(newData, watchedState);
       watchedState.processData = 'updated';
     }
   };
