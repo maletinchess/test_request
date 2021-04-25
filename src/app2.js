@@ -134,7 +134,7 @@ const app = () => {
       watchedState.links.forEach((link) => {
         updateLink(link);
       });
-    }, 1000);
+    }, 10000);
   };
 
   autoUpdate();
