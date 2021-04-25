@@ -11,22 +11,29 @@ const getRss = async (url) => {
   return response.data;
 };
 
-const isExist = (currentUrls, url) => currentUrls.includes(url);
+const isLinkLoaded = (currentUrls, url) => currentUrls.includes(url);
 
-const addLinksData = (url, xml, state, id) => {
+const addLink = (url, state, id) => {
   const link = {
     url,
-    xml,
     id,
   };
   state.links = [...state.links, link];
 };
 
-const addDataForRendering = (data, state, id) => {
-  const { feed } = data;
-  const { posts } = data;
-  state.feeds = [...state.feeds, { ...feed, id }];
-  state.posts = [...state.posts, ...posts.map((post) => ({ ...post, id }))];
+const updater = (state) => {
+  const { links, feeds, posts } = state;
+  links.forEach(async (link) => {
+    const { id, url } = link;
+    const xml = await getRss(url);
+    const filteredPosts = posts.filter((post) => post.id !== id);
+    const filteredFeeds = feeds.filter((feed) => feed.id !== id);
+    const data = parseXml(xml);
+    const newFeed = { ...data.feed, id };
+    state.feeds = [...filteredFeeds, newFeed];
+    const newPosts = data.posts.map((post) => ({ ...post, id }));
+    state.posts = [...filteredPosts, ...newPosts];
+  });
 };
 
 const validate = (value) => {
@@ -81,7 +88,7 @@ const app = () => {
     const url = formData.get('url');
 
     const urls = watchedState.links.map((link) => link.url);
-    if (isExist(urls, url)) {
+    if (isLinkLoaded(urls, url)) {
       watchedState.form.fields.rssUrl = {
         error: 'RSS is exist already',
         valid: false,
@@ -100,21 +107,19 @@ const app = () => {
       return;
     }
 
+    watchedState.linksCount += 1;
+    addLink(url, watchedState, watchedState.linksCount);
+    watchedState.dataProcess = 'loading';
+
     try {
       watchedState.form.fields.rssUrl = {
         error: null,
         valid: true,
       };
       watchedState.error = null;
-      watchedState.dataProcess = 'loading';
-      const xml = await getRss(url);
-      const data = parseXml(xml);
-      watchedState.linksCount += 1;
-      const id = watchedState.linksCount;
-      addLinksData(url, xml, watchedState, id);
-      addDataForRendering(data, watchedState, id);
-      console.log(watchedState);
+      updater(watchedState);
       watchedState.dataProcess = 'added';
+      console.log(watchedState);
     } catch (err) {
       watchedState.dataProcess = 'failed';
       watchedState.error = err.message;
