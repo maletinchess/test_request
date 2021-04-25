@@ -58,7 +58,7 @@ const app = () => {
     links: [],
     linksCount: 0,
     error: null,
-    processData: '',
+    dataProcess: '',
   };
 
   const elements = {
