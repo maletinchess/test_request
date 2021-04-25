@@ -62,7 +62,7 @@ const renderForm = (dataProcess, elements) => {
       elements.input.removeAttribute('disabled');
       elements.input.value = '';
       elements.feedback.classList.add('text-success');
-      elements.textContent = 'RSS loaded';
+      elements.feedback.textContent = 'RSS loaded';
       break;
     default:
       throw new Error(`Unknown process ${dataProcess}`);
@@ -81,7 +81,6 @@ const dataProcessHandler = (state, elements) => {
       renderForm('failed', elements);
       break;
     case 'added':
-      console.log(elements.feeds);
       renderFeeds(state.feeds, elements);
       renderPosts(state.posts, elements);
       renderForm('added', elements);
