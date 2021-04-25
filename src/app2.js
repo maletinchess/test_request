@@ -136,8 +136,6 @@ const app = () => {
       });
     }, 5000);
   };
-
-  autoUpdate();
 };
 
 export default app;
