@@ -27,6 +27,7 @@ const updater = (state) => {
     const { id, url } = link;
     const xml = await getRss(url);
     const filteredPosts = posts.filter((post) => post.id !== id);
+    console.log(filteredPosts);
     const filteredFeeds = feeds.filter((feed) => feed.id !== id);
     const data = parseXml(xml);
     const newFeed = { ...data.feed, id };
@@ -116,12 +117,11 @@ const app = () => {
     };
     watchedState.error = null;
     watchedState.dataProcess = 'loading';
+  });
 
+  setInterval(() => {
     try {
-      setInterval(() => {
-        updater(watchedState);
-      }, 5000);
-
+      updater(watchedState);
       console.log(watchedState);
       watchedState.dataProcess = 'added';
     } catch (err) {
