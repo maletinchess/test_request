@@ -26,8 +26,8 @@ const updater = (state) => {
   links.forEach(async (link) => {
     const { id, url } = link;
     const xml = await getRss(url);
+    console.log(xml);
     const filteredPosts = posts.filter((post) => post.id !== id);
-    console.log(filteredPosts);
     const filteredFeeds = feeds.filter((feed) => feed.id !== id);
     const data = parseXml(xml);
     const newFeed = { ...data.feed, id };
