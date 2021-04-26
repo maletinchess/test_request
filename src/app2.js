@@ -9,7 +9,7 @@ const getRss = async (url) => {
   const proxy = 'https://hexlet-allorigins.herokuapp.com/get?url=';
   const response = await axios.get(`${proxy}${encodeURIComponent(url)}`);
   console.log(response);
-  return response.data;
+  return response.data.contents;
 };
 
 const isLinkLoaded = (currentUrls, url) => currentUrls.includes(url);
