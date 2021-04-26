@@ -119,7 +119,7 @@ const app = () => {
     watchedState.dataProcess = 'loading';
 
     try {
-      updater(watchedState);
+      await updater(watchedState);
       watchedState.dataProcess = 'added';
     } catch (err) {
       watchedState.dataProcess = 'failed';
