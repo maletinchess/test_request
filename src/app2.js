@@ -132,7 +132,7 @@ const app = () => {
   });
   setInterval(async () => {
     await updater(watchedState);
-  }, 2000);
+  }, 5000);
 };
 
 export default app;
