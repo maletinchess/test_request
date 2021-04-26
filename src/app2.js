@@ -39,7 +39,6 @@ const updater = (state) => {
     state.feeds = [...filteredFeeds, newFeed];
     const receivedPostsWithId = data.posts.map((post) => ({ ...post, id }));
     const diff = _.differenceWith(posts, receivedPostsWithId, _.isEqual);
-    console.log(diff);
     state.posts = [...receivedPostsWithId, ...diff];
   });
 };
@@ -105,7 +104,7 @@ const app = async () => {
     const urls = watchedState.links.map((link) => link.url);
     if (isLinkLoaded(urls, url)) {
       watchedState.form.fields.rssUrl = {
-        error: 'RSS is exist already',
+        error: i18next.t('errors.existed'),
         valid: false,
       };
       return;
