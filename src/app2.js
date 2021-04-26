@@ -118,7 +118,10 @@ const app = () => {
     watchedState.dataProcess = 'loading';
 
     try {
-      updater(watchedState);
+      setInterval(() => {
+        updater(watchedState);
+      }, 5000);
+
       console.log(watchedState);
       watchedState.dataProcess = 'added';
     } catch (err) {
