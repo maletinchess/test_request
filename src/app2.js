@@ -127,6 +127,7 @@ const app = () => {
       watchedState.error = err.message;
     }
   });
+  setInterval(updater(watchedState, 2000));
 };
 
 export default app;
