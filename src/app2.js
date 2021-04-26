@@ -6,7 +6,7 @@ import initview from './view2';
 import parseXml from './parser';
 
 const getRss = async (url) => {
-  const proxy = 'https://hexlet-allorigins.herokuapp.com/raw?url=';
+  const proxy = 'https://hexlet-allorigins.herokuapp.com/get?url=';
   const response = await axios.get(`${proxy}${encodeURIComponent(url)}`);
   console.log(response);
   return response.data;
