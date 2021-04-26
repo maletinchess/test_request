@@ -27,16 +27,15 @@ const addLink = (url, state, id) => {
 };
 
 const updater = (state) => {
-  const { links, feeds, posts } = state;
+  const { links, posts } = state;
   links.forEach(async (link) => {
     const { id, url } = link;
     const xml = await getRss(url);
     const data = parseXml(xml);
-    const newFeed = { ...data.feed, id };
-    state.feeds = [...feeds, newFeed];
     const receivedPostsWithId = data.posts.map((post) => ({ ...post, id }));
-    const oldPosts = _.differenceWith(posts, receivedPostsWithId, _.isEqual);
-    state.posts = [...posts, ...oldPosts];
+    const diff = _.differenceWith(posts, receivedPostsWithId, _.isEqual);
+    console.log(diff);
+    state.posts = [...receivedPostsWithId, ...diff];
   });
 };
 
