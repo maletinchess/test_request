@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 import onChange from 'on-change';
+import i18next from 'i18next';
 
 const renderFeeds = (feeds, elements) => {
   elements.feeds.textContent = '';
@@ -62,7 +63,7 @@ const renderForm = (dataProcess, elements) => {
       elements.input.value = '';
       elements.feedback.classList.add('text-success');
       elements.feedback.classList.remove('text-danger');
-      elements.feedback.textContent = 'RSS loaded';
+      elements.feedback.textContent = i18next.t('success');
       break;
     default:
       throw new Error(`Unknown process ${dataProcess}`);

@@ -3,8 +3,10 @@
 import axios from 'axios';
 import * as yup from 'yup';
 import _ from 'lodash';
+import i18next from 'i18next';
 import initview from './view2';
 import parseXml from './parser';
+import resources from './locales/en';
 
 const getRss = async (url) => {
   const proxy = 'https://hexlet-allorigins.herokuapp.com/get';
@@ -56,7 +58,14 @@ const validate = (value) => {
   }
 };
 
-const app = () => {
+const app = async () => {
+  const defaultLanguage = 'en';
+  await i18next.init({
+    lng: defaultLanguage,
+    debug: true,
+    resources,
+  });
+
   const state = {
     form: {
       fields: {
