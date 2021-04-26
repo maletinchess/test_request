@@ -6,7 +6,7 @@ import _ from 'lodash';
 import i18next from 'i18next';
 import initview from './view2';
 import parseXml from './parser';
-import resources from './locales/en';
+import resources from './locales';
 
 const getRss = async (url) => {
   const proxy = 'https://hexlet-allorigins.herokuapp.com/get';
