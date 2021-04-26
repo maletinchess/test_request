@@ -31,6 +31,7 @@
     "@rgrove/parse-xml": "^3.0.0",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0-beta3",
+    "lodash": "^4.17.21",
     "on-change": "^2.2.3",
     "xmldom": "^0.5.0",
     "yup": "^0.32.9"

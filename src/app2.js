@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import * as yup from 'yup';
+import _ from 'lodash';
 import initview from './view2';
 import parseXml from './parser';
 
@@ -12,7 +13,6 @@ const getRss = async (url) => {
   instanceURL.searchParams.set('disableCache', true);
   const apiURL = instanceURL.toString();
   const response = await axios.get(apiURL);
-  console.log(response);
   return response.data.contents;
 };
 
@@ -31,15 +31,12 @@ const updater = (state) => {
   links.forEach(async (link) => {
     const { id, url } = link;
     const xml = await getRss(url);
-    console.log(xml);
-    const filteredPosts = posts.filter((post) => post.id !== id);
-    const filteredFeeds = feeds.filter((feed) => feed.id !== id);
     const data = parseXml(xml);
     const newFeed = { ...data.feed, id };
-    state.feeds = [...filteredFeeds, newFeed];
-    const newPosts = data.posts.map((post) => ({ ...post, id }));
-    console.log(newPosts);
-    state.posts = [...filteredPosts, ...newPosts];
+    state.feeds = [...feeds, newFeed];
+    const receivedPostsWithId = data.posts.map((post) => ({ ...post, id }));
+    const oldPosts = _.differenceWith(posts, receivedPostsWithId, _.isEqual);
+    state.posts = [...posts, ...oldPosts];
   });
 };
 
