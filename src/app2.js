@@ -31,12 +31,14 @@ const updater = (state) => {
   links.forEach(async (link) => {
     const { id, url } = link;
     const xml = await getRss(url);
+    console.log(xml);
     const filteredPosts = posts.filter((post) => post.id !== id);
     const filteredFeeds = feeds.filter((feed) => feed.id !== id);
     const data = parseXml(xml);
     const newFeed = { ...data.feed, id };
     state.feeds = [...filteredFeeds, newFeed];
     const newPosts = data.posts.map((post) => ({ ...post, id }));
+    console.log(newPosts);
     state.posts = [...filteredPosts, ...newPosts];
   });
 };
