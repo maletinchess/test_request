@@ -117,9 +117,7 @@ const app = () => {
     };
     watchedState.error = null;
     watchedState.dataProcess = 'loading';
-  });
 
-  setInterval(() => {
     try {
       updater(watchedState);
       watchedState.dataProcess = 'added';
@@ -127,7 +125,7 @@ const app = () => {
       watchedState.dataProcess = 'failed';
       watchedState.error = err.message;
     }
-  }, 2000);
+  });
 };
 
 export default app;
