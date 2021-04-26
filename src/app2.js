@@ -27,7 +27,6 @@ const updater = (state) => {
   links.forEach(async (link) => {
     const { id, url } = link;
     const xml = await getRss(url);
-    console.log(xml);
     const filteredPosts = posts.filter((post) => post.id !== id);
     const filteredFeeds = feeds.filter((feed) => feed.id !== id);
     const data = parseXml(xml);
@@ -127,7 +126,9 @@ const app = () => {
       watchedState.error = err.message;
     }
   });
-  setInterval(updater(watchedState, 2000));
+  setInterval(async () => {
+    await updater(watchedState);
+  }, 2000);
 };
 
 export default app;
