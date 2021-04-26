@@ -122,13 +122,12 @@ const app = () => {
   setInterval(() => {
     try {
       updater(watchedState);
-      console.log(watchedState);
       watchedState.dataProcess = 'added';
     } catch (err) {
       watchedState.dataProcess = 'failed';
       watchedState.error = err.message;
     }
-  });
+  }, 2000);
 };
 
 export default app;
