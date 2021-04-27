@@ -104,7 +104,7 @@ const app = async () => {
     const urls = watchedState.links.map((link) => link.url);
     if (isLinkLoaded(urls, url)) {
       watchedState.form.fields.rssUrl = {
-        error: i18next.t('errors.existed'),
+        error: 'errors.existed',
         valid: false,
       };
       return;

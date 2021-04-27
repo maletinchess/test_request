@@ -78,7 +78,7 @@ const renderFormError = (form, elements) => {
   } else {
     elements.input.classList.add('is-invalid');
     elements.feedback.classList.add('text-danger');
-    elements.feedback.textContent = url.error;
+    elements.feedback.textContent = i18next.t(url.error);
   }
 };
 
