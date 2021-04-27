@@ -46,7 +46,9 @@ const updater = (state) => {
 
 const validate = (value) => {
   setLocale({
-    matches: 'It is not rss',
+    string: {
+      matches: 'It is not rss',
+    },
   });
 
   const schema = yup
