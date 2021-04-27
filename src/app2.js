@@ -44,12 +44,11 @@ const updater = (state) => {
   });
 };
 
-setLocale({
-  matches: i18next.t('errors.existed'),
-  url: i18next.t('errors.invalidUrl'),
-});
-
 const validate = (value) => {
+  setLocale({
+    matches: i18next.t('errors.existed'),
+    url: i18next.t('errors.invalidUrl'),
+  });
   const schema = yup
     .string()
     .trim()
