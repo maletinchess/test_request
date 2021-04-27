@@ -46,7 +46,8 @@ const updater = (state) => {
 
 setLocale({
   string: {
-    matches: 'It is not rss',
+    matches: i18next.t('errors.existed'),
+    url: i18next.t('errors.invalidUrl'),
   },
 });
 
