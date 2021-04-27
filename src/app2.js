@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import * as yup from 'yup';
+import { setLocale } from 'yup';
 import _ from 'lodash';
 import i18next from 'i18next';
 import initview from './view2';
@@ -42,6 +43,11 @@ const updater = (state) => {
     state.posts = [...receivedPostsWithId, ...diff];
   });
 };
+
+setLocale({
+  matches: i18next.t('errors.existed'),
+  url: i18next.t('errors.invalidUrl'),
+});
 
 const validate = (value) => {
   const schema = yup
@@ -114,9 +120,7 @@ const app = async () => {
     if (error) {
       watchedState.form.fields.rssUrl = {
         valid: false,
-        error: error === 'this must match the following: "/rss/"'
-          ? 'Resource does not contain a valid RSS'
-          : error,
+        error,
       };
       return;
     }
