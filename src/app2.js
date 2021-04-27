@@ -44,11 +44,11 @@ const updater = (state) => {
   });
 };
 
-setLocale({
-  matches: 'It is not rss',
-});
-
 const validate = (value) => {
+  setLocale({
+    matches: 'It is not rss',
+  });
+
   const schema = yup
     .string()
     .trim()
