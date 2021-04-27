@@ -44,6 +44,10 @@ const updater = (state) => {
   });
 };
 
+setLocale({
+  matches: 'It is not rss',
+});
+
 const validate = (value) => {
   const schema = yup
     .string()
