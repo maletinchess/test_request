@@ -20,3 +20,9 @@
     margin-right: -15px;
     margin-left: -15px;
 }
+
+.rss-form {
+    display: block;
+    margin-top: 0em;
+    margin-block-end: 1em;
+}
