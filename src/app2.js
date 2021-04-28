@@ -47,7 +47,7 @@ const updater = (state) => {
 setLocale({
   string: {
     matches: '!!!!!!!!!!!!!!!!',
-    url: i18next.t('&&&&&'),
+    url: '&&&&&',
   },
 });
 
