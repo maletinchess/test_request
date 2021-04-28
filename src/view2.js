@@ -15,8 +15,6 @@ const renderFeeds = (feeds, elements) => {
   feeds.forEach((feed) => {
     const li = document.createElement('li');
     li.classList.add('list-group-item');
-    li.classList.add('d-flex');
-    li.classList.add('justify-content-between');
     ul.append(li);
     const h = document.createElement('h3');
     li.append(h);
@@ -41,9 +39,11 @@ const renderPosts = (posts, elements) => {
     aModal.append(modalBtn);
     modalBtn.textContent = 'View';
     const li = document.createElement('li');
+    li.classList.add('d-flex');
+    li.classList.add('justify-content-between');
+    li.classList.add('list-group-item');
     li.append(a);
     li.append(aModal);
-    li.classList.add('list-group-item');
     a.textContent = item.title;
     a.setAttribute('href', item.link);
     ul.append(li);
