@@ -46,7 +46,7 @@ const updater = (state) => {
 
 setLocale({
   string: {
-    matches: i18next.t('en', 'errors.invalidRSS'),
+    matches: i18next.t('errors.invalidRSS', 'en'),
     url: '&&&&&',
   },
 });
