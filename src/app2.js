@@ -62,7 +62,7 @@ const validate = (value) => {
     return null;
   } catch (err) {
     console.log(err);
-    return err.message;
+    return err;
   }
 };
 
