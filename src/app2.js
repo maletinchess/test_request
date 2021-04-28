@@ -48,7 +48,7 @@ const validate = (value) => {
   setLocale({
     string: {
       matches: i18next.t('errors.invalidRSS'),
-      url: i18next.t('errors.invalidURL'),
+      url: i18next.t('errors.invalidUrl'),
     },
   });
   const schema = yup
