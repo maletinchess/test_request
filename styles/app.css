@@ -1,0 +1,11 @@
+.min-vh-100 {
+    min-height: 100vh !important;
+}
+
+.flex-column {
+    flex-direction: column !important;
+}
+
+.d-flex {
+    display: flex !important;
+}
