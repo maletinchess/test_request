@@ -33,3 +33,15 @@
     margin-right: -5px;
     margin-left: -5px;
 }
+
+.ml-auto, .mx-auto {
+    margin-left: auto !important;
+}
+
+.mx-auto {
+    margin-right: auto !important;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
