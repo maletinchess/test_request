@@ -61,7 +61,7 @@ const validate = (value) => {
     schema.validateSync(value);
     return null;
   } catch (err) {
-    console.log(err.errors);
+    console.log(err.message);
     return err.errors;
   }
 };
