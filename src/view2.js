@@ -32,8 +32,15 @@ const renderPosts = (posts, elements) => {
   elements.posts.append(ul);
   posts.forEach((item) => {
     const a = document.createElement('a');
+    const aModal = document.createElement('a');
+    const modalBtn = document.createElement('button');
+    modalBtn.classList.add('btn');
+    modalBtn.classList.add('btn-primary');
+    aModal.append(modalBtn);
+    modalBtn.textContent = 'View';
     const li = document.createElement('li');
     li.append(a);
+    li.append(aModal);
     li.classList.add('list-group-item');
     a.textContent = item.title;
     a.setAttribute('href', item.link);
