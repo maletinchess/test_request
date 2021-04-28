@@ -42,6 +42,10 @@ const updater = (state) => {
     const diff = _.differenceWith(posts, receivedPostsWithId, _.isEqual);
     state.posts = [...receivedPostsWithId, ...diff];
   });
+
+  setTimeout(() => {
+    updater(state);
+  }, 5000);
 };
 
 const validate = (value) => {
