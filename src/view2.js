@@ -15,6 +15,7 @@ const renderFeeds = (feeds, elements) => {
   feeds.forEach((feed) => {
     const li = document.createElement('li');
     li.classList.add('list-group-item');
+    li.classList.add('d-flex');
     li.classList.add('justify-content-between');
     ul.append(li);
     const h = document.createElement('h3');
