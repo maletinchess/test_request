@@ -148,9 +148,6 @@ const app = async () => {
       watchedState.error = err.message;
     }
   });
-  setInterval(async () => {
-    await updater(watchedState);
-  }, 5000);
 };
 
 export default app;
