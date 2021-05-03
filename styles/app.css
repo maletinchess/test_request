@@ -34,23 +34,6 @@
     margin-left: -5px;
 }
 
-.ml-auto, .mx-auto {
-    margin-left: auto !important;
-}
-
-.mx-auto {
-    margin-right: auto !important;
-}
-
 .justify-content-between {
   justify-content: space-between !important;
-}
-
-.px-sm-5 {
-    padding-right: 3rem!important;
-    padding-left: 3rem!important;
-}
-
-.w-100 {
-    width: 100%!important;
 }
