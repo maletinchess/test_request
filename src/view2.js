@@ -25,28 +25,45 @@ const renderFeeds = (feeds, elements) => {
   });
 };
 
+const buildModalElement = (data, id) => {
+  const modalElement = document.createElement('li');
+  modalElement.classList.add('list-group-item');
+  modalElement.classList.add('d-flex');
+  modalElement.classList.add('justify-content-between');
+  modalElement.classList.add('align-items-start');
+
+  const a = document.createElement('a');
+  a.setAttribute('href', data.link);
+  a.classList.add('font-weight-bold');
+  a.setAttribute('data-id', id);
+  a.setAttribute('target', '_blank');
+  a.setAttribute('noopener noreferrer');
+  a.textContent = data.title;
+
+  const btnModal = document.createElement('button');
+  btnModal.setAttribute('type', 'button');
+  btnModal.classList.add('btn');
+  btnModal.classList.add('btn-primary');
+  btnModal.classList.add('btn-sm');
+  btnModal.setAttribute('data-id', id);
+  btnModal.setAttribute('data-toggle', 'modal');
+  btnModal.setAttribute('data-target', '#modal');
+  btnModal.textContent = i18next.t('view');
+
+  modalElement.append(a);
+  modalElement.append(btnModal);
+
+  return modalElement;
+};
+
 const renderPosts = (posts, elements) => {
   elements.posts.innerHTML = '';
   const ul = document.createElement('ul');
   ul.classList.add('list-group');
   elements.posts.append(ul);
-  posts.forEach((item) => {
-    const a = document.createElement('a');
-    const aModal = document.createElement('a');
-    const modalBtn = document.createElement('button');
-    modalBtn.classList.add('btn');
-    modalBtn.classList.add('btn-primary');
-    aModal.append(modalBtn);
-    modalBtn.textContent = 'View';
-    const li = document.createElement('li');
-    li.classList.add('d-flex');
-    li.classList.add('justify-content-between');
-    li.classList.add('list-group-item');
-    li.append(a);
-    li.append(aModal);
-    a.textContent = item.title;
-    a.setAttribute('href', item.link);
-    ul.append(li);
+  posts.forEach((post, index) => {
+    const modal = buildModalElement(post, index + 2);
+    ul.append(modal);
   });
 };
 

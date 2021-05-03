@@ -102,6 +102,10 @@ const app = async () => {
     feedback: document.querySelector('div.feedback'),
     feeds: document.querySelector('.feeds'),
     posts: document.querySelector('.posts'),
+    modalDiv: document.querySelector('#modal'),
+    modalTitle: document.querySelector('.modal-title'),
+    modalBody: document.querySelector('.modal-body'),
+    modalRef: document.querySelector('.full-article'),
   };
 
   const watchedState = initview(state, elements);
