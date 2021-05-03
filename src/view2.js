@@ -37,7 +37,7 @@ const buildModalElement = (data, id) => {
   a.classList.add('font-weight-bold');
   a.setAttribute('data-id', id);
   a.setAttribute('target', '_blank');
-  a.setAttribute('noopener noreferrer');
+  a.setAttribute('rel', 'noopener noreferrer');
   a.textContent = data.title;
 
   const btnModal = document.createElement('button');
