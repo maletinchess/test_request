@@ -6,6 +6,6 @@ export default {
       invalidUrl: 'Url must be a valid URL',
       invalidRSS: 'This is invalid RSS',
     },
-    view: 'View content',
+    view: 'VIEW',
   },
 };
