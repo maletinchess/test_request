@@ -156,8 +156,8 @@ const app = async () => {
   });
 
   elements.modalButtons.forEach((modal) => {
-    console.log(elements.modalButtons);
     modal.addEventListener('click', () => {
+      console.log(elements.modalButtons);
       elements.body.classList.add('modal-open');
     });
   });
