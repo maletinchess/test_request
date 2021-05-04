@@ -41,8 +41,3 @@ const arr3 = [
 
 const diff1 = _.differenceWith(newWithDiff, arr3, _.isEqual);
 console.log(diff1);
-const newWithDiff1 = [...arr3, ...diff1];
-
-<a href="https://ru.hexlet.io/courses/python-setup-environment/lessons/poetry-and-packaging/theory_unit" class="font-weight-bold" data-id="2" target="_blank" rel="noopener noreferrer">Сборка дистрибутива пакета с помощью Poetry / Python: Настройка окружения</a>
-
-console.log(newWithDiff1);
