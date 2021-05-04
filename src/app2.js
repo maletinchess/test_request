@@ -154,11 +154,10 @@ const app = async () => {
       watchedState.error = err.message;
     }
   });
-
   elements.modalButtons.forEach((modal) => {
-    modal.addEventListener('click', () => {
+    modal.addEventListener('click', (e) => {
       console.log(elements.modalButtons);
-      elements.body.classList.add('modal-open');
+      e.target.classList.add('font-weight-normal');
     });
   });
 };

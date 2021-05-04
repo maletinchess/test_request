@@ -37,3 +37,11 @@
 .justify-content-between {
   justify-content: space-between !important;
 }
+
+.font-weight-bold {
+  font-weight: 900;
+}
+
+.font-weight-normal {
+  font-weight: 400;
+}
