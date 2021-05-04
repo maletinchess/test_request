@@ -154,7 +154,7 @@ const app = async () => {
       watchedState.error = err.message;
     }
   });
-
+  console.log(elements.modalButtons);
   elements.modalButtons.forEach((modal) => {
     modal.addEventListener('click', () => {
       elements.body.classList.add('modal-open');
