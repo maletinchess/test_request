@@ -107,7 +107,7 @@ const app = async () => {
     modalTitle: document.querySelector('.modal-title'),
     modalBody: document.querySelector('.modal-body'),
     modalRef: document.querySelector('.full-article'),
-    modalButtons: document.querySelectorAll('[data-toggle="modal"]'),
+    modalButtons: document.querySelectorAll('[data-bs-toggle="modal"]'),
   };
 
   const watchedState = initview(state, elements);
