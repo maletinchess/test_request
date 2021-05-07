@@ -107,7 +107,7 @@ const app = async () => {
     modalTitle: document.querySelector('.modal-title'),
     modalBody: document.querySelector('.modal-body'),
     modalRef: document.querySelector('.full-article'),
-    modalButtons: document.querySelectorAll('li'),
+    modalButtons: document.querySelectorAll('button'),
   };
 
   const watchedState = initview(state, elements);
@@ -153,6 +153,11 @@ const app = async () => {
       watchedState.dataProcess = 'failed';
       watchedState.error = err.message;
     }
+  });
+  elements.modalButtons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+      e.target.textContent = '!!!!';
+    });
   });
 };
 
