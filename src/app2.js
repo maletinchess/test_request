@@ -154,11 +154,6 @@ const app = async () => {
       watchedState.error = err.message;
     }
   });
-  elements.modalButtons.forEach((button) => {
-    button.addEventListener('click', (e) => {
-      e.target.textContent = '!!!!';
-    });
-  });
 };
 
 export default app;
