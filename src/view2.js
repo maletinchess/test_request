@@ -65,7 +65,7 @@ const renderPosts = (posts, elements) => {
     const modal = buildModalElement(post, post.id);
     ul.append(modal);
   });
-  console.log(elements.modalButtons);
+  console.log(elements.posts);
 };
 
 const renderForm = (dataProcess, elements) => {
