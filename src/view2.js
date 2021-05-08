@@ -50,6 +50,10 @@ const buildModalElement = (data, id) => {
   btnModal.setAttribute('data-bs-target', '#modal');
   btnModal.textContent = i18next.t('view');
 
+  btnModal.addEventListener('click', (e) => {
+    e.target.textContent = '!!!!!!!!!';
+  });
+
   modalElement.append(a);
   modalElement.append(btnModal);
 
