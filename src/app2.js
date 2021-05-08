@@ -54,7 +54,7 @@ const addFeed = async (url, state, id) => {
   const newFeed = { ...data.feed, id };
   state.feeds = [newFeed, ...state.feeds];
   const mappedPosts = state.posts.map((post) => ({ ...post, id }));
-  state.posts = [data.posts, ...mappedPosts];
+  state.posts = [...data.posts, ...mappedPosts];
 };
 
 const validate = (value) => {
