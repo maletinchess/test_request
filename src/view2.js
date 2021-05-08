@@ -54,8 +54,8 @@ const buildModalElement = (data, id, elements, state) => {
 
   const a = document.createElement('a');
   a.setAttribute('href', data.link);
-  const fontClass = data.read ? 'font-weight-normal' : 'font-weight-bold';
-  a.classList.add(fontClass);
+  const fontClassDefault = 'font-weight-bold';
+  a.classList.add(fontClassDefault);
   a.setAttribute('data-id', id);
   a.setAttribute('target', '_blank');
   a.setAttribute('rel', 'noopener noreferrer');
