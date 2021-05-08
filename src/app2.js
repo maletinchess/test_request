@@ -48,6 +48,15 @@ const updater = (state) => {
   }, 5000);
 };
 
+const addFeed = async (url, state, id) => {
+  const xml = await getRss(url);
+  const data = parseXml(xml);
+  const newFeed = { ...data.feed, id };
+  state.feeds = [newFeed, ...state.feeds];
+  const mappedPosts = state.posts.map((post) => ({ ...post, id }));
+  state.posts = [data.posts, ...mappedPosts];
+};
+
 const validate = (value) => {
   setLocale({
     string: {
@@ -147,13 +156,23 @@ const app = async () => {
     watchedState.dataProcess = 'loading';
 
     try {
-      await updater(watchedState);
+      await addFeed(url, watchedState, watchedState.linksCount);
       watchedState.dataProcess = 'added';
     } catch (err) {
       watchedState.dataProcess = 'failed';
       watchedState.error = err.message;
     }
   });
+
+  setTimeout(() => {
+    try {
+      updater(watchedState);
+      watchedState.dataProcess = 'added';
+    } catch (err) {
+      watchedState.dataProcess = 'failed';
+      watchedState.error = err.message;
+    }
+  }, 5000);
 };
 
 export default app;
