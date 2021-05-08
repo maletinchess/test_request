@@ -32,7 +32,7 @@ const modalButtonHandler = (state, btnModal, data, elements) => {
     elements.modalBody.textContent = data.description;
     elements.modalTitle.textContent = data.title;
     elements.modalRef.setAttribute('href', data.link);
-    state.readedPostsIds = [...state.readedPostsIds, data.id];
+    state.readedPostsIds.push(data.id);
   });
 };
 
@@ -70,13 +70,13 @@ const buildModalElement = (data, id, elements, state) => {
   return modalElement;
 };
 
-const renderPosts = (posts, elements) => {
+const renderPosts = (posts, elements, state) => {
   elements.posts.innerHTML = '';
   const ul = document.createElement('ul');
   ul.classList.add('list-group');
   elements.posts.append(ul);
   posts.forEach((post) => {
-    const modal = buildModalElement(post, post.id, elements);
+    const modal = buildModalElement(post, post.id, elements, state);
     ul.append(modal);
   });
 };
