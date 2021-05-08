@@ -158,8 +158,8 @@ const app = async () => {
   console.log(elements.modalButtons);
 
   const modalButtonsHandler = (button) => button.addEventListener('click', (e) => {
-    const button = e.target.value;
-    const id = button.getAttribute('data-id');
+    const buttonElem = e.target.value;
+    const id = buttonElem.getAttribute('data-id');
     const readedPost = watchedState.posts.find((post) => post.id === id);
     readedPost.read = true;
   });
