@@ -25,7 +25,7 @@ const renderFeeds = (feeds, elements) => {
   });
 };
 
-const buildModalElement = (data, id) => {
+const buildModalElement = (data, id, elements) => {
   const modalElement = document.createElement('li');
   modalElement.classList.add('list-group-item');
   modalElement.classList.add('d-flex');
@@ -52,6 +52,9 @@ const buildModalElement = (data, id) => {
 
   btnModal.addEventListener('click', (e) => {
     e.target.textContent = '!!!!!!!!!';
+    elements.modalBody.textContent = '!!!!!!!';
+    elements.modalDiv.setAttribute('aria-modal', true);
+    elements.modalDiv.removeAttribute('aria-hidden');
   });
 
   modalElement.append(a);
