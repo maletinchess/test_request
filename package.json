@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/maletinchess/test_request#readme",
   "devDependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.1",
+    "babel-loader": "^8.2.2",
     "css-loader": "^5.2.1",
     "eslint": "^7.24.0",
     "eslint-config-airbnb-base": "^14.2.1",
