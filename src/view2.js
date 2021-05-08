@@ -53,7 +53,9 @@ const buildModalElement = (data, id, elements) => {
   btnModal.textContent = i18next.t('view');
 
   btnModal.addEventListener('click', () => {
-    elements.modalBody.textContent = '!!!!!!!';
+    elements.modalBody.textContent = data.description;
+    elements.modalTitle.textContent = data.title;
+    elements.modalRef.setAttribute('href', data.link);
   });
 
   modalElement.append(a);
