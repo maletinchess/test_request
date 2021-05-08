@@ -154,16 +154,6 @@ const app = async () => {
       watchedState.error = err.message;
     }
   });
-  setInterval(() => console.log(elements.modalButtons), 2000);
-
-  const modalButtonsHandler = (button) => button.addEventListener('click', (e) => {
-    const buttonElem = e.target.value;
-    const id = buttonElem.getAttribute('data-id');
-    const readedPost = watchedState.posts.find((post) => post.id === id);
-    readedPost.read = true;
-  });
-
-  elements.modalButtons.forEach(modalButtonsHandler);
 };
 
 export default app;
