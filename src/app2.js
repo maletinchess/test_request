@@ -40,9 +40,7 @@ const updater = (state) => {
     state.feeds = [newFeed, ...filteredFeeds].sort((a, b) => b.id > a.id);
     const receivedPostsWithId = data.posts.map((post) => ({ ...post, id }));
     const diff = _.differenceWith(posts, receivedPostsWithId, _.isEqual);
-    if (diff.length > 0) {
-      state.posts = [...receivedPostsWithId, ...diff].sort((a, b) => b.id > a.id);
-    }
+    state.posts = [...receivedPostsWithId, ...diff].sort((a, b) => b.id > a.id);
   });
 
   setTimeout(() => {
