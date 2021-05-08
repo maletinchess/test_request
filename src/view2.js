@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-import 'jquery';
+import 'bootstrap/js/dist/modal';
 import onChange from 'on-change';
 import i18next from 'i18next';
 
