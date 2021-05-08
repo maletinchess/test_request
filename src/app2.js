@@ -155,12 +155,16 @@ const app = async () => {
     }
   });
 
-  elements.modalButtons('click', (e) => {
+  console.log(elements.modalButtons);
+
+  const modalButtonsHandler = (button) => button.addEventListener('click', (e) => {
     const button = e.target.value;
     const id = button.getAttribute('data-id');
     const readedPost = watchedState.posts.find((post) => post.id === id);
     readedPost.read = true;
   });
+
+  elements.modalButtons.forEach(modalButtonsHandler);
 };
 
 export default app;
