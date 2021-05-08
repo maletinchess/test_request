@@ -68,7 +68,7 @@ const renderPosts = (posts, elements) => {
   ul.classList.add('list-group');
   elements.posts.append(ul);
   posts.forEach((post) => {
-    const modal = buildModalElement(post, post.id);
+    const modal = buildModalElement(post, post.id, elements);
     ul.append(modal);
   });
 };
