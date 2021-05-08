@@ -55,8 +55,6 @@ const buildModalElement = (data, id, elements) => {
   btnModal.addEventListener('click', (e) => {
     e.target.textContent = '!!!!!!!!!';
     elements.modalBody.textContent = '!!!!!!!';
-    elements.modalDiv.setAttribute('aria-modal', true);
-    elements.modalDiv.removeAttribute('aria-hidden');
   });
 
   modalElement.append(a);
