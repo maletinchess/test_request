@@ -36,7 +36,7 @@ const modalButtonHandler = (state, btnModal, data, elements) => {
   });
 };
 
-const buildModalElement = (data, id, elements, state) => {
+const buildModalElement = (state, data, id, elements) => {
   const modalElement = document.createElement('li');
   modalElement.classList.add('list-group-item');
   modalElement.classList.add('d-flex');
@@ -70,7 +70,8 @@ const buildModalElement = (data, id, elements, state) => {
   return modalElement;
 };
 
-const renderPosts = (posts, elements, state) => {
+const renderPosts = (state, elements) => {
+  const { posts } = state;
   elements.posts.innerHTML = '';
   const ul = document.createElement('ul');
   ul.classList.add('list-group');
@@ -147,7 +148,7 @@ const initview = (state, elements) => {
     error: () => renderAppError(state.error, elements),
     'form.fields.rssUrl': () => renderFormError(state.form, elements),
     feeds: () => renderFeeds(state.feeds, elements),
-    posts: () => renderPosts(state.posts, elements),
+    posts: () => renderPosts(state, elements),
     readedPostsIds: () => renderReadedPosts(state, elements),
   };
 
