@@ -27,17 +27,15 @@ const renderFeeds = (feeds, elements) => {
   });
 };
 
-const modalButtonHandler = (state, btnModal, data, elements) => {
+const modalButtonHandler = (btnModal, data, elements) => {
   btnModal.addEventListener('click', () => {
     elements.modalBody.textContent = data.description;
     elements.modalTitle.textContent = data.title;
     elements.modalRef.setAttribute('href', data.link);
-    state.readedPostsIds.push(data.id);
-    console.log(state.readedPostsIds);
   });
 };
 
-const buildModalElement = (state, data, id, elements) => {
+const buildModalElement = (data, id, elements) => {
   const modalElement = document.createElement('li');
   modalElement.classList.add('list-group-item');
   modalElement.classList.add('d-flex');
@@ -63,7 +61,7 @@ const buildModalElement = (state, data, id, elements) => {
   btnModal.setAttribute('data-bs-target', '#modal');
   btnModal.textContent = i18next.t('view');
 
-  modalButtonHandler(state, btnModal, data, elements);
+  modalButtonHandler(btnModal, data, elements);
 
   modalElement.append(a);
   modalElement.append(btnModal);
@@ -78,17 +76,8 @@ const renderPosts = (state, elements) => {
   ul.classList.add('list-group');
   elements.posts.append(ul);
   posts.forEach((post) => {
-    const modal = buildModalElement(state, post, post.id, elements);
+    const modal = buildModalElement(post, post.id, elements);
     ul.append(modal);
-  });
-};
-
-const renderReadedPosts = (state, elements) => {
-  const { readedPostsIds } = state;
-  readedPostsIds.forEach((id) => {
-    const linkEl = elements.posts.querySelector(`a[data-id]=${id}`);
-    linkEl.classList.add('font-weight-normal');
-    linkEl.classList.remove('font-weight-bold');
   });
 };
 
@@ -150,7 +139,6 @@ const initview = (state, elements) => {
     'form.fields.rssUrl': () => renderFormError(state.form, elements),
     feeds: () => renderFeeds(state.feeds, elements),
     posts: () => renderPosts(state, elements),
-    readedPostsIds: () => renderReadedPosts(state, elements),
   };
 
   const watchedState = onChange(state, (path) => {
