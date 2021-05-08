@@ -45,3 +45,9 @@
 .font-weight-normal {
   font-weight: 400;
 }
+
+.close {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+}
