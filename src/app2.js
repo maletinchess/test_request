@@ -37,10 +37,10 @@ const updater = (state) => {
     const data = parseXml(xml);
     const filteredFeeds = feeds.filter((feed) => feed.id !== id);
     const newFeed = { ...data.feed, id };
-    state.feeds = [newFeed, ...filteredFeeds];
+    state.feeds = [newFeed, ...filteredFeeds].sort((a, b) => b.id > a.id);
     const receivedPostsWithId = data.posts.map((post) => ({ ...post, id }));
     const diff = _.differenceWith(posts, receivedPostsWithId, _.isEqual);
-    state.posts = [...receivedPostsWithId, ...diff];
+    state.posts = [...receivedPostsWithId, ...diff].sort((a, b) => b.id > a.id);
   });
 
   setTimeout(() => {
