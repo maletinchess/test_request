@@ -154,8 +154,7 @@ const app = async () => {
       watchedState.error = err.message;
     }
   });
-
-  console.log(elements.modalButtons);
+  setInterval(console.log(elements.modalButtons), 2000);
 
   const modalButtonsHandler = (button) => button.addEventListener('click', (e) => {
     const buttonElem = e.target.value;
