@@ -33,6 +33,7 @@ const modalButtonHandler = (state, btnModal, data, elements) => {
     elements.modalTitle.textContent = data.title;
     elements.modalRef.setAttribute('href', data.link);
     state.readedPostsIds.push(data.id);
+    console.log(state.readedPostsIds);
   });
 };
 
