@@ -88,6 +88,7 @@ const app = async () => {
     },
     feeds: [],
     posts: [],
+    readedPostsIds: [],
     links: [],
     linksCount: 0,
     error: null,

@@ -27,7 +27,25 @@ const renderFeeds = (feeds, elements) => {
   });
 };
 
-const buildModalElement = (data, id, elements) => {
+const modalButtonHandler = (state, btnModal, data, elements) => {
+  btnModal.addEventListener('click', () => {
+    elements.modalBody.textContent = data.description;
+    elements.modalTitle.textContent = data.title;
+    elements.modalRef.setAttribute('href', data.link);
+    state.readedPostsIds = [...state.readedPostsIds, data.id];
+  });
+};
+
+const renderReadedPosts = (state, elements) => {
+  const { readedPostsIds } = state;
+  readedPostsIds.forEach((id) => {
+    const linkEl = elements.posts.querySelector(`a[data-id]=${id}`);
+    linkEl.classList.add('font-weight-normal');
+    linkEl.classList.remove('font-weight-bold');
+  });
+};
+
+const buildModalElement = (data, id, elements, state) => {
   const modalElement = document.createElement('li');
   modalElement.classList.add('list-group-item');
   modalElement.classList.add('d-flex');
@@ -53,11 +71,7 @@ const buildModalElement = (data, id, elements) => {
   btnModal.setAttribute('data-bs-target', '#modal');
   btnModal.textContent = i18next.t('view');
 
-  btnModal.addEventListener('click', () => {
-    elements.modalBody.textContent = data.description;
-    elements.modalTitle.textContent = data.title;
-    elements.modalRef.setAttribute('href', data.link);
-  });
+  modalButtonHandler(state, btnModal, data, elements);
 
   modalElement.append(a);
   modalElement.append(btnModal);
@@ -134,6 +148,7 @@ const initview = (state, elements) => {
     'form.fields.rssUrl': () => renderFormError(state.form, elements),
     feeds: () => renderFeeds(state.feeds, elements),
     posts: () => renderPosts(state.posts, elements),
+    readedPostsIds: () => renderReadedPosts(state, elements),
   };
 
   const watchedState = onChange(state, (path) => {
