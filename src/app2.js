@@ -38,7 +38,7 @@ const updater = (state) => {
     const filteredFeeds = feeds.filter((feed) => feed.id !== id);
     const newFeed = { ...data.feed, id };
     state.feeds = [newFeed, ...filteredFeeds].sort((a, b) => b.id > a.id);
-    const receivedPostsWithId = data.posts.map((post) => ({ ...post, id }));
+    const receivedPostsWithId = data.posts.map((post) => ({ ...post, id, read: false }));
     const diff = _.differenceWith(posts, receivedPostsWithId, _.isEqual);
     state.posts = [...receivedPostsWithId, ...diff].sort((a, b) => b.id > a.id);
   });
@@ -107,7 +107,7 @@ const app = async () => {
     modalTitle: document.querySelector('.modal-title'),
     modalBody: document.querySelector('.modal-body'),
     modalRef: document.querySelector('.full-article'),
-    modalButtons: document.querySelectorAll('button'),
+    modalButtons: document.querySelectorAll('button[data-bs-toggle="modal"]'),
   };
 
   const watchedState = initview(state, elements);
@@ -153,6 +153,13 @@ const app = async () => {
       watchedState.dataProcess = 'failed';
       watchedState.error = err.message;
     }
+  });
+
+  elements.modalButtons('click', (e) => {
+    const button = e.target.value;
+    const id = button.getAttribute('data-id');
+    const readedPost = watchedState.posts.find((post) => post.id === id);
+    readedPost.read = true;
   });
 };
 
