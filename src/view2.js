@@ -36,7 +36,8 @@ const buildModalElement = (data, id, elements) => {
 
   const a = document.createElement('a');
   a.setAttribute('href', data.link);
-  a.classList.add('font-weight-bold');
+  const fontClass = data.read ? 'font-weight-normal' : 'font-weight-bold';
+  a.classList.add(fontClass);
   a.setAttribute('data-id', id);
   a.setAttribute('target', '_blank');
   a.setAttribute('rel', 'noopener noreferrer');
@@ -56,6 +57,7 @@ const buildModalElement = (data, id, elements) => {
     elements.modalBody.textContent = data.description;
     elements.modalTitle.textContent = data.title;
     elements.modalRef.setAttribute('href', data.link);
+    data.read = true;
   });
 
   modalElement.append(a);
