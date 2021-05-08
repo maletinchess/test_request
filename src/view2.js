@@ -36,15 +36,6 @@ const modalButtonHandler = (state, btnModal, data, elements) => {
   });
 };
 
-const renderReadedPosts = (state, elements) => {
-  const { readedPostsIds } = state;
-  readedPostsIds.forEach((id) => {
-    const linkEl = elements.posts.querySelector(`a[data-id]=${id}`);
-    linkEl.classList.add('font-weight-normal');
-    linkEl.classList.remove('font-weight-bold');
-  });
-};
-
 const buildModalElement = (data, id, elements, state) => {
   const modalElement = document.createElement('li');
   modalElement.classList.add('list-group-item');
@@ -87,6 +78,15 @@ const renderPosts = (posts, elements) => {
   posts.forEach((post) => {
     const modal = buildModalElement(post, post.id, elements);
     ul.append(modal);
+  });
+};
+
+const renderReadedPosts = (state, elements) => {
+  const { readedPostsIds } = state;
+  readedPostsIds.forEach((id) => {
+    const linkEl = elements.posts.querySelector(`a[data-id]=${id}`);
+    linkEl.classList.add('font-weight-normal');
+    linkEl.classList.remove('font-weight-bold');
   });
 };
 
