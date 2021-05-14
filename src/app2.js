@@ -29,7 +29,7 @@ const addLink = (url, state, id) => {
   state.links = [...state.links, link];
 };
 
-const updater = (state) => {
+const update = (state) => {
   const { links, feeds, posts } = state;
   links.forEach(async (link) => {
     const { id, url } = link;
@@ -37,14 +37,16 @@ const updater = (state) => {
     const data = parseXml(xml);
     const filteredFeeds = feeds.filter((feed) => feed.id !== id);
     const newFeed = { ...data.feed, id };
-    state.feeds = [newFeed, ...filteredFeeds].sort((a, b) => b.id > a.id);
+    state.feeds = [newFeed, ...filteredFeeds];
     const receivedPostsWithId = data.posts.map((post) => ({ ...post, id }));
     const diff = _.differenceWith(posts, receivedPostsWithId, _.isEqual);
-    state.posts = [...receivedPostsWithId, ...diff].sort((a, b) => b.id > a.id);
+    if (diff.length > 0) {
+      state.posts = [...receivedPostsWithId, ...diff];
+    }
   });
 
   setTimeout(() => {
-    updater(state);
+    update(state);
   }, 5000);
 };
 
@@ -147,7 +149,7 @@ const app = async () => {
     watchedState.dataProcess = 'loading';
 
     try {
-      await updater(watchedState);
+      await update(watchedState);
       watchedState.dataProcess = 'added';
     } catch (err) {
       watchedState.dataProcess = 'failed';

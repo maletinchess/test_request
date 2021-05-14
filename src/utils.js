@@ -1,0 +1,40 @@
+/* eslint-disable no-param-reassign */
+
+import axios from 'axios';
+import _ from 'lodash';
+import parseXml from './parser';
+
+const getDiff = (data1, data2) => _.differenceWith(data1, data2, _.isEqual);
+
+const sendRequest = async (url) => {
+  const proxy = 'https://hexlet-allorigins.herokuapp.com/get';
+  const instanceURL = new URL(proxy);
+  instanceURL.searchParams.set('url', url);
+  instanceURL.searchParams.set('disableCache', true);
+  const apiURL = instanceURL.toString();
+  const response = await axios.get(apiURL);
+  return response.data.contents;
+};
+
+const autoUpdateRSS = async (link, state) => {
+  const { url, id } = link;
+  const xmlResponse = await sendRequest(url);
+  const data = parseXml(xmlResponse);
+
+  const { posts } = data;
+  const mappedPosts = posts.mapped((post) => ({ ...post, id }));
+  const diff = getDiff(state.posts, mappedPosts);
+
+  if (diff.length > 0) {
+    state.posts = [...mappedPosts, ...diff];
+  }
+  setTimeout(() => {
+    autoUpdateRSS(link, state);
+  }, 5000);
+};
+
+const addRSS = (link, state) => {
+  autoUpdateRSS(link, state);
+};
+
+export default addRSS;
