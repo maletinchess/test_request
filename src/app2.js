@@ -40,9 +40,8 @@ const update = (state) => {
     state.feeds = [newFeed, ...filteredFeeds];
     const receivedPostsWithId = data.posts.map((post) => ({ ...post, id }));
     const diff = _.differenceWith(posts, receivedPostsWithId, _.isEqual);
-    if (diff.length > 0) {
-      state.posts = [...receivedPostsWithId, ...diff];
-    }
+
+    state.posts = [...receivedPostsWithId, ...diff];
   });
 
   setTimeout(() => {
