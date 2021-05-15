@@ -33,7 +33,14 @@ const autoUpdateRSS = async (link, state) => {
   }, 5000);
 };
 
-const addRSS = (link, state) => {
+const addRSS = (link, state, xml) => {
+  const { feed, posts } = parseXml(xml);
+  const { id } = link;
+  const newFeed = { ...feed, id };
+  state.feeds = [newFeed, ...state.feeds];
+  const mappedPosts = posts.map((post) => ({ ...post, id }));
+  state.posts = [...mappedPosts, ...state.posts];
+
   autoUpdateRSS(link, state);
 };
 

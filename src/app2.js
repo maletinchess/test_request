@@ -19,15 +19,9 @@ const getRss = async (url) => {
   return response.data.contents;
 };
 
-const isLinkLoaded = (currentUrls, url) => currentUrls.includes(url);
-
-const addLink = (url, state, id) => {
-  const link = {
-    url,
-    id,
-  };
-  state.links = [...state.links, link];
-};
+const isLinkLoaded = (url, state) => state.links.map(
+  (link) => link.url,
+).include(url);
 
 const update = (state) => {
   const { links, feeds, posts } = state;
@@ -119,15 +113,13 @@ const app = async () => {
     const formData = new FormData(e.target);
     const url = formData.get('url');
 
-    const urls = watchedState.links.map((link) => link.url);
-    if (isLinkLoaded(urls, url)) {
+    if (isLinkLoaded(url, watchedState)) {
       watchedState.form.fields.rssUrl = {
         error: 'errors.existed',
         valid: false,
       };
       return;
     }
-
     const error = validate(url);
     if (error) {
       watchedState.form.fields.rssUrl = {
@@ -138,7 +130,8 @@ const app = async () => {
     }
 
     watchedState.linksCount += 1;
-    addLink(url, watchedState, watchedState.linksCount);
+    const newLink = { url, id: watchedState.linksCount };
+    watchedState.links = [newLink, ...watchedState.links];
 
     watchedState.form.fields.rssUrl = {
       error: null,
