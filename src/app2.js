@@ -1,48 +1,11 @@
 /* eslint-disable no-param-reassign */
 
-import axios from 'axios';
 import * as yup from 'yup';
 import { setLocale } from 'yup';
-import _ from 'lodash';
 import i18next from 'i18next';
 import initview from './view2';
-import parseXml from './parser';
-import { addRSS, sendRequest } from './utils';
+import { addRSS, sendRequest, isLinkLoaded } from './utils';
 import resources from './locales';
-
-const getRss = async (url) => {
-  const proxy = 'https://hexlet-allorigins.herokuapp.com/get';
-  const instanceURL = new URL(proxy);
-  instanceURL.searchParams.set('url', url);
-  instanceURL.searchParams.set('disableCache', true);
-  const apiURL = instanceURL.toString();
-  const response = await axios.get(apiURL);
-  return response.data.contents;
-};
-
-const isLinkLoaded = (url, state) => state.links.map(
-  (link) => link.url,
-).includes(url);
-
-const update = (state) => {
-  const { links, feeds, posts } = state;
-  links.forEach(async (link) => {
-    const { id, url } = link;
-    const xml = await getRss(url);
-    const data = parseXml(xml);
-    const filteredFeeds = feeds.filter((feed) => feed.id !== id);
-    const newFeed = { ...data.feed, id };
-    state.feeds = [newFeed, ...filteredFeeds];
-    const receivedPostsWithId = data.posts.map((post) => ({ ...post, id }));
-    const diff = _.differenceWith(posts, receivedPostsWithId, _.isEqual);
-
-    state.posts = [...receivedPostsWithId, ...diff];
-  });
-
-  setTimeout(() => {
-    update(state);
-  }, 5000);
-};
 
 const validate = (value) => {
   setLocale({

@@ -6,6 +6,10 @@ import parseXml from './parser';
 
 const getDiff = (data1, data2) => _.differenceWith(data1, data2, _.isEqual);
 
+export const isLinkLoaded = (url, state) => state.links.map(
+  (link) => link.url,
+).includes(url);
+
 export const sendRequest = async (url) => {
   const proxy = 'https://hexlet-allorigins.herokuapp.com/get';
   const instanceURL = new URL(proxy);
