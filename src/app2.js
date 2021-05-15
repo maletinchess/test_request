@@ -113,6 +113,8 @@ const app = async () => {
       watchedState.error = err.message;
     }
   });
+
+  setInterval(() => console.log(elements.modalButtons), 3000);
 };
 
 export default app;

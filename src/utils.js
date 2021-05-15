@@ -29,7 +29,6 @@ const autoUpdateRSS = async (link, state) => {
   const mappedPosts = posts.map((post) => ({ ...post, id }));
   const statePosts = state.posts;
   const diff = getDiff(mappedPosts, statePosts);
-  console.log(diff);
 
   if (diff.length > 0) {
     state.posts = [...diff, ...statePosts];

@@ -56,7 +56,7 @@ const buildModalElement = (data, id, elements) => {
   btnModal.classList.add('btn');
   btnModal.classList.add('btn-primary');
   btnModal.classList.add('btn-sm');
-  btnModal.setAttribute('data-id', id);
+  btnModal.setAttribute('data-id', `${id + 2}`);
   btnModal.setAttribute('data-bs-toggle', 'modal');
   btnModal.setAttribute('data-bs-target', '#modal');
   btnModal.textContent = i18next.t('view');
