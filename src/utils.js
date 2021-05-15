@@ -27,11 +27,13 @@ const autoUpdateRSS = async (link, state) => {
 
   const { posts } = data;
   const mappedPosts = posts.map((post) => ({ ...post, id }));
-  const diff = getDiff(mappedPosts, state.posts);
+
+  const statePosts = state.posts;
+  const diff = getDiff(mappedPosts, statePosts);
   console.log(diff);
 
   if (diff.length > 0) {
-    state.posts = [...mappedPosts, ...diff];
+    state.posts = [...statePosts, ...diff];
   }
   setTimeout(() => {
     autoUpdateRSS(link, state);
