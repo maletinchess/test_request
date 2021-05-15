@@ -4,7 +4,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import parseXml from './parser';
 
-const getDiff = (data1, data2) => _.differenceWith(data1, data2, _.isEqual);
+const getDiff = (newData, currentData) => _.differenceWith(newData, currentData, _.isEqual);
 
 export const isLinkLoaded = (url, state) => state.links.map(
   (link) => link.url,
@@ -27,7 +27,7 @@ const autoUpdateRSS = async (link, state) => {
 
   const { posts } = data;
   const mappedPosts = posts.map((post) => ({ ...post, id }));
-  const diff = getDiff(state.posts, mappedPosts);
+  const diff = getDiff(mappedPosts, state.posts);
 
   if (diff.length > 0) {
     state.posts = [...mappedPosts, ...diff];
