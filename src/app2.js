@@ -21,7 +21,7 @@ const getRss = async (url) => {
 
 const isLinkLoaded = (url, state) => state.links.map(
   (link) => link.url,
-).include(url);
+).includes(url);
 
 const update = (state) => {
   const { links, feeds, posts } = state;
