@@ -34,16 +34,16 @@ const autoUpdateRSS = async (link, state) => {
   }
   setTimeout(() => {
     autoUpdateRSS(link, state);
-  }, 5000);
+  }, 10000);
 };
 
 export const addRSS = (link, state, xml) => {
   const { feed, posts } = parseXml(xml);
   const { id } = link;
   const newFeed = { ...feed, id };
-  state.feeds = [...state.feeds, newFeed];
+  state.feeds = [newFeed, ...state.feeds];
   const mappedPosts = posts.map((post) => ({ ...post, id }));
-  state.posts = [...state.posts, ...mappedPosts];
+  state.posts = [...mappedPosts, ...state.posts];
 
   autoUpdateRSS(link, state);
 };
