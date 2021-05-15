@@ -27,15 +27,15 @@ const renderFeeds = (feeds, elements) => {
   });
 };
 
-const modalButtonHandler = (btnModal, data, elements) => {
+const modalButtonHandler = (btnModal, postData, elements) => {
   btnModal.addEventListener('click', () => {
-    elements.modalBody.textContent = data.description;
-    elements.modalTitle.textContent = data.title;
-    elements.modalRef.setAttribute('href', data.link);
+    elements.modalBody.textContent = postData.description;
+    elements.modalTitle.textContent = postData.title;
+    elements.modalRef.setAttribute('href', postData.link);
   });
 };
 
-const buildModalElement = (data, id, elements) => {
+const buildModalElement = (postData, postIndex, elements) => {
   const modalElement = document.createElement('li');
   modalElement.classList.add('list-group-item');
   modalElement.classList.add('d-flex');
@@ -43,25 +43,25 @@ const buildModalElement = (data, id, elements) => {
   modalElement.classList.add('align-items-start');
 
   const a = document.createElement('a');
-  a.setAttribute('href', data.link);
+  a.setAttribute('href', postData.link);
   const fontClassDefault = 'font-weight-bold';
   a.classList.add(fontClassDefault);
-  a.setAttribute('data-id', id);
+  a.setAttribute('data-id', `${postIndex + 2}`);
   a.setAttribute('target', '_blank');
   a.setAttribute('rel', 'noopener noreferrer');
-  a.textContent = data.title;
+  a.textContent = postData.title;
 
   const btnModal = document.createElement('button');
   btnModal.setAttribute('type', 'button');
   btnModal.classList.add('btn');
   btnModal.classList.add('btn-primary');
   btnModal.classList.add('btn-sm');
-  btnModal.setAttribute('data-id', `${id + 2}`);
+  btnModal.setAttribute('data-id', `${postIndex + 2}`);
   btnModal.setAttribute('data-bs-toggle', 'modal');
   btnModal.setAttribute('data-bs-target', '#modal');
   btnModal.textContent = i18next.t('view');
 
-  modalButtonHandler(btnModal, data, elements);
+  modalButtonHandler(btnModal, postData, elements);
 
   modalElement.append(a);
   modalElement.append(btnModal);
@@ -75,8 +75,9 @@ const renderPosts = (state, elements) => {
   const ul = document.createElement('ul');
   ul.classList.add('list-group');
   elements.posts.append(ul);
-  posts.forEach((post) => {
-    const modal = buildModalElement(post, post.id, elements);
+  posts.forEach((post, index) => {
+    const modal = buildModalElement(post, index, elements);
+    console.log(modal.dataset);
     ul.append(modal);
   });
 };
