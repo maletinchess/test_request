@@ -26,7 +26,7 @@ const autoUpdateRSS = async (link, state) => {
   const diff = getDiff(state.posts, mappedPosts);
 
   if (diff.length > 0) {
-    state.posts = [...mappedPosts, ...diff];
+    state.posts = [...diff, ...mappedPosts];
   }
   setTimeout(() => {
     autoUpdateRSS(link, state);
