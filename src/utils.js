@@ -22,7 +22,7 @@ const autoUpdateRSS = async (link, state) => {
   const data = parseXml(xmlResponse);
 
   const { posts } = data;
-  const mappedPosts = posts.mapped((post) => ({ ...post, id }));
+  const mappedPosts = posts.map((post) => ({ ...post, id }));
   const diff = getDiff(state.posts, mappedPosts);
 
   if (diff.length > 0) {
