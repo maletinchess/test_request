@@ -6,7 +6,7 @@ import parseXml from './parser';
 
 const getDiff = (data1, data2) => _.differenceWith(data1, data2, _.isEqual);
 
-const sendRequest = async (url) => {
+export const sendRequest = async (url) => {
   const proxy = 'https://hexlet-allorigins.herokuapp.com/get';
   const instanceURL = new URL(proxy);
   instanceURL.searchParams.set('url', url);
@@ -33,7 +33,7 @@ const autoUpdateRSS = async (link, state) => {
   }, 5000);
 };
 
-const addRSS = (link, state, xml) => {
+export const addRSS = (link, state, xml) => {
   const { feed, posts } = parseXml(xml);
   const { id } = link;
   const newFeed = { ...feed, id };
@@ -43,5 +43,3 @@ const addRSS = (link, state, xml) => {
 
   autoUpdateRSS(link, state);
 };
-
-export default addRSS;

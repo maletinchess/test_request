@@ -7,6 +7,7 @@ import _ from 'lodash';
 import i18next from 'i18next';
 import initview from './view2';
 import parseXml from './parser';
+import { addRSS, sendRequest } from './utils';
 import resources from './locales';
 
 const getRss = async (url) => {
@@ -141,7 +142,8 @@ const app = async () => {
     watchedState.dataProcess = 'loading';
 
     try {
-      await update(watchedState);
+      const xml = await sendRequest(url);
+      addRSS(newLink, watchedState, xml);
       watchedState.dataProcess = 'added';
     } catch (err) {
       watchedState.dataProcess = 'failed';
