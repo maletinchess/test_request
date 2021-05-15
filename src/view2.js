@@ -60,7 +60,7 @@ const buildModalElement = (postData, postIndex, elements) => {
   btnModal.setAttribute('data-bs-toggle', 'modal');
   btnModal.setAttribute('data-bs-target', '#modal');
   btnModal.textContent = i18next.t('view');
-  console.log(btnModal.dataset.id);
+  console.log(btnModal.dataset);
 
   modalButtonHandler(btnModal, postData, elements);
 
