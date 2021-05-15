@@ -60,6 +60,7 @@ const buildModalElement = (postData, postIndex, elements) => {
   btnModal.setAttribute('data-bs-toggle', 'modal');
   btnModal.setAttribute('data-bs-target', '#modal');
   btnModal.textContent = i18next.t('view');
+  console.log(btnModal.dataset.id);
 
   modalButtonHandler(btnModal, postData, elements);
 
@@ -77,7 +78,6 @@ const renderPosts = (state, elements) => {
   elements.posts.append(ul);
   posts.forEach((post, index) => {
     const modal = buildModalElement(post, index, elements);
-    console.log(modal.dataset);
     ul.append(modal);
   });
 };
