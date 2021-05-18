@@ -117,7 +117,7 @@ const app = async () => {
 
   elements.modalDiv.addEventListener('show.bs.modal', (e) => {
     watchedState.modalCount += 1;
-    console.log(e.target);
+    console.log(e.relatedTarget);
     console.log(watchedState.modalCount);
   });
 };
