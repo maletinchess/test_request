@@ -51,6 +51,7 @@ const app = async () => {
     linksCount: 0,
     error: null,
     dataProcess: '',
+    modalCount: 0,
   };
 
   const elements = {
@@ -112,6 +113,12 @@ const app = async () => {
       watchedState.dataProcess = 'failed';
       watchedState.error = err.message;
     }
+  });
+
+  elements.modalDiv.addEventListener('shown.bs.modal', (e) => {
+    watchedState.modalCount += 1;
+    console.log(e.target);
+    console.log(watchedState.modalCount);
   });
 };
 
