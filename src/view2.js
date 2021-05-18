@@ -50,7 +50,6 @@ const buildModalElement = (postData, postIndex, elements) => {
   a.setAttribute('target', '_blank');
   a.setAttribute('rel', 'noopener noreferrer');
   a.textContent = postData.title;
-  console.log([a.dataset, a.textContent, a.href]);
 
   const btnModal = document.createElement('button');
   btnModal.setAttribute('type', 'button');
