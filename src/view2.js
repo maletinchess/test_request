@@ -81,7 +81,6 @@ const renderPosts = (state, elements) => {
   elements.posts.append(ul);
   posts.forEach((post) => {
     const modal = buildModalElement(post, elements, state);
-    console.log(modal.outerHTML);
     ul.append(modal);
   });
 };
