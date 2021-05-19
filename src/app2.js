@@ -129,7 +129,7 @@ const app = async () => {
     watchedState.readPostsId.push(dataId);
     console.log(watchedState.readPostsId);
     console.log(elements.links);
-    const relatedData = watchedState.posts.find((post) => post.dataId === dataId);
+    const relatedData = watchedState.posts.find((post) => post.postId === dataId);
     const { title, description, link } = relatedData;
     watchedState.modalContent = { title, description, link };
     console.log(watchedState.modalContent);
