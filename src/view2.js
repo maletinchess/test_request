@@ -35,7 +35,7 @@ const modalButtonHandler = (btnModal, postData, elements) => {
   });
 };
 
-const buildModalElement = (postData, postIndex, elements) => {
+const buildModalElement = (postData, elements) => {
   const modalElement = document.createElement('li');
   modalElement.classList.add('list-group-item');
   modalElement.classList.add('d-flex');
@@ -46,7 +46,7 @@ const buildModalElement = (postData, postIndex, elements) => {
   a.setAttribute('href', postData.link);
   const fontClassDefault = 'font-weight-bold';
   a.classList.add(fontClassDefault);
-  a.setAttribute('data-id', `${postIndex + 2}`);
+  a.setAttribute('data-id', `${postData.postId + 2}`);
   a.setAttribute('target', '_blank');
   a.setAttribute('rel', 'noopener noreferrer');
   a.textContent = postData.title;
@@ -56,7 +56,7 @@ const buildModalElement = (postData, postIndex, elements) => {
   btnModal.classList.add('btn');
   btnModal.classList.add('btn-primary');
   btnModal.classList.add('btn-sm');
-  btnModal.setAttribute('data-id', `${postIndex + 2}`);
+  btnModal.setAttribute('data-id', `${postData.postId + 2}`);
   btnModal.setAttribute('data-bs-toggle', 'modal');
   btnModal.setAttribute('data-bs-target', '#modal');
   btnModal.textContent = i18next.t('view');
@@ -75,8 +75,8 @@ const renderPosts = (state, elements) => {
   const ul = document.createElement('ul');
   ul.classList.add('list-group');
   elements.posts.append(ul);
-  posts.forEach((post, index) => {
-    const modal = buildModalElement(post, index, elements);
+  posts.forEach((post) => {
+    const modal = buildModalElement(post, elements);
     ul.append(modal);
   });
 };

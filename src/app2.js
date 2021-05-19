@@ -125,8 +125,9 @@ const app = async () => {
     const relatedElement = e.relatedTarget;
     const dataId = relatedElement.dataset.id;
     const relatedLinkEl = document.querySelector(`a[data-id="${dataId}"]`);
-    console.log(relatedLinkEl);
-    relatedLinkEl.classList.replace('font-weight-bold', 'font-weight-normal');
+    console.log([relatedLinkEl, relatedElement]);
+    watchedState.modalContent.href = relatedLinkEl.href;
+    watchedState.modalContent.title = relatedLinkEl.textContent;
   });
 };
 

@@ -26,12 +26,23 @@ const autoUpdateRSS = async (link, state) => {
   const data = parseXml(xmlResponse);
 
   const { posts } = data;
-  const mappedPosts = posts.map((post) => ({ ...post, id }));
   const statePosts = state.posts;
-  const diff = getDiff(mappedPosts, statePosts);
+  const mappedStatePosts = statePosts.map((post) => {
+    const { title, description } = post;
+    return {
+      title,
+      description,
+      link: post.link,
+    };
+  });
+  const diff = getDiff(posts, mappedStatePosts);
+  const mappedDiff = diff.map(
+    (post, index) => ({ ...post, id, postId: statePosts.length + index }),
+  );
 
   if (diff.length > 0) {
-    state.posts = [...diff, ...statePosts];
+    state.posts = [...mappedDiff, ...statePosts];
+    console.log(state.posts);
   }
   setTimeout(() => {
     autoUpdateRSS(link, state);
@@ -44,7 +55,9 @@ export const addRSS = (link, state, xml) => {
   const newFeed = { ...feed, id };
   state.feeds = [newFeed, ...state.feeds];
   const mappedPosts = posts.map((post) => ({ ...post, id }));
-  state.posts = [...mappedPosts, ...state.posts];
+  state.posts = [...mappedPosts, ...state.posts]
+    .map((post, index) => ({ ...post, postId: index + state.posts.length }));
+  console.log(state.posts);
 
   autoUpdateRSS(link, state);
 };
