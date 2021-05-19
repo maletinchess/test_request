@@ -141,7 +141,7 @@ const app = async () => {
   });
 
   elements.posts.addEventListener('click', (e) => {
-    const choosedElem = e.target.value;
+    const choosedElem = e.target;
     console.log(choosedElem.outerHTML);
   });
 };
