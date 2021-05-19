@@ -53,9 +53,10 @@ export const addRSS = (link, state, xml) => {
   const { id } = link;
   const newFeed = { ...feed, id };
   state.feeds = [newFeed, ...state.feeds];
-  const mappedPosts = posts.map((post) => ({ ...post, id }));
-  state.posts = [...mappedPosts, ...state.posts]
-    .map((post, index) => ({ ...post, postId: index + state.posts.length }));
+  const mappedPosts = posts.map(
+    (post, index) => ({ ...post, id, postId: index + state.posts.length }),
+  );
+  state.posts = [...mappedPosts, ...state.posts];
 
   autoUpdateRSS(link, state);
 };
