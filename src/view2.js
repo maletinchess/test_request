@@ -32,12 +32,10 @@ const renderFeeds = (feeds, elements) => {
   });
 };
 
-const modalButtonHandler = (btnModal, postData, elements) => {
-  btnModal.addEventListener('click', () => {
-    elements.modalBody.textContent = postData.description;
-    elements.modalTitle.textContent = postData.title;
-    elements.modalRef.setAttribute('href', postData.link);
-  });
+const renderModal = (modalContent, elements) => {
+  elements.modalTitle.textContent = modalContent.title;
+  elements.modalBody.textContent = modalContent.description;
+  elements.modalRef.href = modalContent.href;
 };
 
 const buildModalElement = (postData, elements, state) => {
@@ -149,6 +147,7 @@ const initview = (state, elements) => {
     feeds: () => renderFeeds(state.feeds, elements),
     posts: () => renderPosts(state, elements),
     readPostsId: () => renderPosts(state, elements),
+    modalContent: () => renderModal(state.modalContent, elements),
   };
 
   const watchedState = onChange(state, (path) => {
