@@ -119,16 +119,6 @@ const app = async () => {
       watchedState.dataProcess = 'failed';
       watchedState.error = err.message;
     }
-
-    const linkElems = elements.posts.querySelectorAll('a');
-    linkElems.forEach((el) => {
-      el.addEventListener('click', (event) => {
-        event.preventDefault();
-        const dataId = Number(el.dataset.id);
-        watchedState.readPostsId.push(dataId);
-        console.log(watchedState.readPostsId);
-      });
-    });
   });
 
   elements.modalDiv.addEventListener('show.bs.modal', (e) => {
@@ -139,6 +129,17 @@ const app = async () => {
     const relatedData = watchedState.posts.find((post) => post.postId === dataId);
     const { title, description, link } = relatedData;
     watchedState.modalContent = { title, description, link };
+  });
+
+  const linkElems = elements.posts.querySelectorAll('a');
+  console.log(linkElems);
+  linkElems.forEach((el) => {
+    el.addEventListener('click', (event) => {
+      event.preventDefault();
+      const dataId = Number(el.dataset.id);
+      watchedState.readPostsId.push(dataId);
+      console.log(watchedState.readPostsId);
+    });
   });
 };
 
