@@ -69,7 +69,7 @@ const app = async () => {
     feedback: document.querySelector('div.feedback'),
     feeds: document.querySelector('.feeds'),
     posts: document.querySelector('.posts'),
-    links: document.querySelectorAll('a.links'),
+    links: document.querySelectorAll('a.link'),
     modalDiv: document.querySelector('#modal'),
     modalTitle: document.querySelector('.modal-title'),
     modalBody: document.querySelector('.modal-body'),
@@ -129,6 +129,10 @@ const app = async () => {
     watchedState.readPostsId.push(dataId);
     console.log(watchedState.readPostsId);
     console.log(elements.links);
+    const relatedData = watchedState.posts.find((post) => post.dataId === dataId);
+    const { title, description, link } = relatedData;
+    watchedState.modalContent = { title, description, link };
+    console.log(watchedState.modalContent);
   });
 
   elements.links.forEach((linkEl) => {
