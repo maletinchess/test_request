@@ -122,9 +122,11 @@ const app = async () => {
 
     const linkElems = elements.posts.querySelectorAll('a');
     linkElems.forEach((el) => {
-      el.addEventListener('click', () => {
+      el.addEventListener('click', (event) => {
+        event.preventDefault();
         const dataId = Number(el.dataset.id);
         watchedState.readPostsId.push(dataId);
+        console.log(watchedState.readPostsId);
       });
     });
   });
