@@ -46,7 +46,7 @@ const buildModalElement = (postData, elements) => {
   a.setAttribute('href', postData.link);
   const fontClassDefault = 'font-weight-bold';
   a.classList.add(fontClassDefault);
-  a.setAttribute('data-id', `${postData.postId + 2}`);
+  a.setAttribute('data-id', `${postData.postId}`);
   a.setAttribute('target', '_blank');
   a.setAttribute('rel', 'noopener noreferrer');
   a.textContent = postData.title;
@@ -56,7 +56,7 @@ const buildModalElement = (postData, elements) => {
   btnModal.classList.add('btn');
   btnModal.classList.add('btn-primary');
   btnModal.classList.add('btn-sm');
-  btnModal.setAttribute('data-id', `${postData.postId + 2}`);
+  btnModal.setAttribute('data-id', `${postData.postId}`);
   btnModal.setAttribute('data-bs-toggle', 'modal');
   btnModal.setAttribute('data-bs-target', '#modal');
   btnModal.textContent = i18next.t('view');
