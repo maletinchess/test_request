@@ -143,9 +143,7 @@ const app = async () => {
   elements.posts.addEventListener('click', (e) => {
     const choosedElem = e.target;
     if (choosedElem.classList.contains('link')) {
-      console.log(choosedElem.outerHTML);
       const dataId = Number(choosedElem.dataset.id);
-      console.log(dataId);
       watchedState.readPostsId.push(dataId);
     }
   });

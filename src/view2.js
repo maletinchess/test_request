@@ -13,7 +13,7 @@ const fontClass = {
 const renderFeeds = (feeds, elements) => {
   elements.feeds.textContent = '';
   const head = document.createElement('h2');
-  head.textContent = 'Feeds';
+  head.textContent = i18next.t('feedsHead');
   elements.feeds.append(head);
   const ul = document.createElement('ul');
   ul.classList.add('list-group');
@@ -80,7 +80,7 @@ const renderPosts = (state, elements) => {
   ul.classList.add('list-group');
   elements.posts.append(ul);
   const postsHead = document.createElement('h2');
-  postsHead.textContent = 'Posts';
+  postsHead.textContent = i18next.t('postsHead');
   elements.posts.prepend(postsHead);
   posts.forEach((post) => {
     const modal = buildModalElement(post, elements, state);

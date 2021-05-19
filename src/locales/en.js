@@ -7,5 +7,7 @@ export default {
       invalidRSS: 'This is invalid RSS',
     },
     view: 'VIEW',
+    postsHead: 'Posts',
+    feedsHead: 'Feeds',
   },
 };
