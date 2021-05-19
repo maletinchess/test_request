@@ -126,8 +126,8 @@ const app = async () => {
     const relatedElement = e.relatedTarget;
     const dataId = Number(relatedElement.dataset.id);
     watchedState.readPostsId.push(dataId);
-    const relatedData = watchedState.posts.find((post) => post.postId === dataId);
-    const { title, description, link } = relatedData;
+    const relatedPost = watchedState.posts.find((post) => post.postId === dataId);
+    const { title, description, link } = relatedPost;
     watchedState.modalContent = { title, description, link };
   });
 
@@ -142,7 +142,11 @@ const app = async () => {
 
   elements.posts.addEventListener('click', (e) => {
     const choosedElem = e.target;
-    console.log(choosedElem.outerHTML);
+    if (choosedElem.classList.contains('link')) {
+      console.log(choosedElem.outerHTML);
+      const dataId = choosedElem.dataset.id;
+      watchedState.readPostsId.push(dataId);
+    }
   });
 };
 
