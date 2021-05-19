@@ -132,14 +132,17 @@ const app = async () => {
   });
 
   const linkElems = elements.posts.querySelectorAll('a');
-  console.log(linkElems);
   linkElems.forEach((el) => {
     el.addEventListener('click', (event) => {
       event.preventDefault();
       const dataId = Number(el.dataset.id);
       watchedState.readPostsId.push(dataId);
-      console.log(watchedState.readPostsId);
     });
+  });
+
+  elements.posts.addEventListener('click', (e) => {
+    const choosedElem = e.target.value;
+    console.log(choosedElem.outerHTML);
   });
 };
 
