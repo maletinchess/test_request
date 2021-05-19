@@ -133,7 +133,7 @@ const app = async () => {
   elements.links.forEach((linkEl) => {
     linkEl.addEventListener('click', (e) => {
       e.preventDefault();
-      linkEl.classList.add('font-weight-normal');
+      linkEl.classList.replace('font-weight-bold', 'font-weight-normal');
     });
   });
 };
