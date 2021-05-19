@@ -128,6 +128,7 @@ const app = async () => {
     const dataId = Number(relatedElement.dataset.id);
     watchedState.readPostsId.push(dataId);
     console.log(watchedState.readPostsId);
+    console.log(elements.links);
   });
 
   elements.links.forEach((linkEl) => {
