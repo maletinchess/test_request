@@ -5,6 +5,11 @@ import 'bootstrap/js/dist/modal';
 import onChange from 'on-change';
 import i18next from 'i18next';
 
+const fontClass = {
+  default: 'font-weight-bold',
+  read: 'font-weight-normal',
+};
+
 const renderFeeds = (feeds, elements) => {
   elements.feeds.textContent = '';
   const head = document.createElement('h2');
@@ -35,7 +40,7 @@ const modalButtonHandler = (btnModal, postData, elements) => {
   });
 };
 
-const buildModalElement = (postData, elements) => {
+const buildModalElement = (postData, elements, state) => {
   const modalElement = document.createElement('li');
   modalElement.classList.add('list-group-item');
   modalElement.classList.add('d-flex');
@@ -44,8 +49,10 @@ const buildModalElement = (postData, elements) => {
 
   const a = document.createElement('a');
   a.setAttribute('href', postData.link);
-  const fontClassDefault = 'font-weight-bold';
-  a.classList.add(fontClassDefault);
+  const fontClassActual = state.readPostsId.includes(postData.postId)
+    ? fontClass.read
+    : fontClass.default;
+  a.classList.add(fontClassActual);
   a.setAttribute('data-id', `${postData.postId}`);
   a.setAttribute('target', '_blank');
   a.setAttribute('rel', 'noopener noreferrer');
@@ -76,7 +83,8 @@ const renderPosts = (state, elements) => {
   ul.classList.add('list-group');
   elements.posts.append(ul);
   posts.forEach((post) => {
-    const modal = buildModalElement(post, elements);
+    const modal = buildModalElement(post, elements, state);
+    console.log(modal.outerHTML);
     ul.append(modal);
   });
 };
@@ -139,6 +147,7 @@ const initview = (state, elements) => {
     'form.fields.rssUrl': () => renderFormError(state.form, elements),
     feeds: () => renderFeeds(state.feeds, elements),
     posts: () => renderPosts(state, elements),
+    readPostsId: () => renderPosts(state, elements),
   };
 
   const watchedState = onChange(state, (path) => {

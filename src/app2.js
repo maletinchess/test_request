@@ -47,6 +47,7 @@ const app = async () => {
     },
     feeds: [],
     posts: [],
+    readPostsId: [],
     links: [],
     linksCount: 0,
     error: null,
@@ -123,11 +124,9 @@ const app = async () => {
   elements.modalDiv.addEventListener('show.bs.modal', (e) => {
     watchedState.modalCount += 1;
     const relatedElement = e.relatedTarget;
-    const dataId = relatedElement.dataset.id;
-    const relatedLinkEl = document.querySelector(`a[data-id="${dataId}"]`);
-    console.log([relatedLinkEl, relatedElement]);
-    watchedState.modalContent.href = relatedLinkEl.href;
-    watchedState.modalContent.title = relatedLinkEl.textContent;
+    const dataId = Number(relatedElement.dataset.id);
+    watchedState.readPostsId.push(dataId);
+    console.log(watchedState.readPostsId);
   });
 };
 

@@ -42,7 +42,6 @@ const autoUpdateRSS = async (link, state) => {
 
   if (diff.length > 0) {
     state.posts = [...mappedDiff, ...statePosts];
-    console.log(state.posts);
   }
   setTimeout(() => {
     autoUpdateRSS(link, state);
@@ -57,7 +56,6 @@ export const addRSS = (link, state, xml) => {
   const mappedPosts = posts.map((post) => ({ ...post, id }));
   state.posts = [...mappedPosts, ...state.posts]
     .map((post, index) => ({ ...post, postId: index + state.posts.length }));
-  console.log(state.posts);
 
   autoUpdateRSS(link, state);
 };
