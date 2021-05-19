@@ -53,6 +53,7 @@ const buildModalElement = (postData, elements, state) => {
     ? fontClass.read
     : fontClass.default;
   a.classList.add(fontClassActual);
+  a.classList.add('.link');
   a.setAttribute('data-id', `${postData.postId}`);
   a.setAttribute('target', '_blank');
   a.setAttribute('rel', 'noopener noreferrer');
