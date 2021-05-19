@@ -144,7 +144,8 @@ const app = async () => {
     const choosedElem = e.target;
     if (choosedElem.classList.contains('link')) {
       console.log(choosedElem.outerHTML);
-      const dataId = choosedElem.dataset.id;
+      const dataId = Number(choosedElem.dataset.id);
+      console.log(dataId);
       watchedState.readPostsId.push(dataId);
     }
   });
