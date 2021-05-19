@@ -69,7 +69,6 @@ const app = async () => {
     feedback: document.querySelector('div.feedback'),
     feeds: document.querySelector('.feeds'),
     posts: document.querySelector('.posts'),
-    links: document.querySelectorAll('a.link'),
     modalDiv: document.querySelector('#modal'),
     modalTitle: document.querySelector('.modal-title'),
     modalBody: document.querySelector('.modal-body'),
@@ -121,7 +120,13 @@ const app = async () => {
       watchedState.error = err.message;
     }
 
-    console.log(elements.links);
+    const linkElems = elements.posts.querySelectorAll('a');
+    linkElems.forEach((el) => {
+      el.addEventListener('click', () => {
+        const dataId = Number(el.dataset.id);
+        watchedState.readPostsId.push(dataId);
+      });
+    });
   });
 
   elements.modalDiv.addEventListener('show.bs.modal', (e) => {
