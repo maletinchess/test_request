@@ -67,8 +67,6 @@ const buildModalElement = (postData, elements, state) => {
   btnModal.setAttribute('data-bs-target', '#modal');
   btnModal.textContent = i18next.t('view');
 
-  modalButtonHandler(btnModal, postData, elements);
-
   modalElement.append(a);
   modalElement.append(btnModal);
 
