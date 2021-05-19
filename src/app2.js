@@ -127,7 +127,7 @@ const app = async () => {
     const relatedElement = e.relatedTarget;
     const dataId = Number(relatedElement.dataset.id);
     watchedState.readPostsId.push(dataId);
-    console.log(elements.links);
+    console.log(elements.posts.querySelectorAll('a'));
     const relatedData = watchedState.posts.find((post) => post.postId === dataId);
     const { title, description, link } = relatedData;
     watchedState.modalContent = { title, description, link };
