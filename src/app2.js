@@ -28,7 +28,7 @@ const validate = (value) => {
 };
 
 const app = async () => {
-  const defaultLanguage = 'en';
+  const defaultLanguage = 'ru';
   await i18next.init({
     lng: defaultLanguage,
     debug: true,
