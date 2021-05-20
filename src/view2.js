@@ -35,7 +35,7 @@ const renderFeeds = (feeds, elements) => {
 const renderModal = (modalContent, elements) => {
   elements.modalTitle.textContent = modalContent.title;
   elements.modalBody.textContent = modalContent.description;
-  elements.modalRef.href = modalContent.href;
+  elements.modalRef.href = modalContent.link;
 };
 
 const buildModalElement = (postData, elements, state) => {
