@@ -118,6 +118,7 @@ const app = async () => {
     } catch (err) {
       watchedState.dataProcess = 'failed';
       watchedState.error = err.message;
+      console.log(err);
     }
   });
 
